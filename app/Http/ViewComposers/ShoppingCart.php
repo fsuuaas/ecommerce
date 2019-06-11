@@ -1,4 +1,6 @@
-<?php namespace app\http\ViewComposers;
+<?php
+
+namespace app\http\ViewComposers;
 
 use App\Antony\DomainLogic\Modules\Composers\ViewComposer;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Base\Main\Basket as ShoppingCartEntity;
@@ -8,7 +10,7 @@ use Illuminate\View\View;
 class ShoppingCart extends ViewComposer
 {
     /**
-     * output variable name
+     * output variable name.
      *
      * @var string
      */
@@ -23,7 +25,7 @@ class ShoppingCart extends ViewComposer
     }
 
     /**
-     * compose the view
+     * compose the view.
      *
      * @param View $view
      *
@@ -35,7 +37,7 @@ class ShoppingCart extends ViewComposer
     }
 
     /**
-     * Gets the data to display in the view
+     * Gets the data to display in the view.
      *
      * @return mixed
      */
@@ -44,6 +46,5 @@ class ShoppingCart extends ViewComposer
         $data = $this->dataSource->displayShoppingCart();
 
         return $data;
-
     }
 }

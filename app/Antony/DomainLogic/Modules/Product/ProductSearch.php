@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Product;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Product;
 
 use app\Antony\DomainLogic\Modules\Search\Search;
 use Illuminate\Http\Request;
@@ -8,55 +10,54 @@ use InvalidArgumentException;
 
 class ProductSearch extends Search
 {
-
     /**
-     * pagination option
+     * pagination option.
      *
-     * @var boolean
+     * @var bool
      */
     public $paginate = true;
 
     /**
-     * Defines if we should use AJAX
+     * Defines if we should use AJAX.
      *
-     * @var boolean
+     * @var bool
      */
     public $useAJAX = false;
 
     /**
-     * The amount of results to display during AJAX suggestive search
+     * The amount of results to display during AJAX suggestive search.
      *
      * @var int
      */
     public $ajaxResultsLimit = 7;
 
     /**
-     * Search keywords
+     * Search keywords.
      *
      * @var string
      */
     protected $keywords = '';
 
     /**
-     * Search results view
+     * Search results view.
      *
      * @var string
      */
     protected $resultsView = 'frontend.products.index';
 
     /**
-     * Empty search results view
+     * Empty search results view.
      *
      * @var string
      */
     protected $outputResultsVariableName = 'products';
 
     /**
-     * Empty results message
+     * Empty results message.
      *
      * @var string
      */
-    protected $emptyResultMessage = "sorry. we found no products matching";
+    protected $emptyResultMessage = 'sorry. we found no products matching';
 
     /**
      * @param ProductRepository $repository
@@ -67,7 +68,7 @@ class ProductSearch extends Search
     }
 
     /**
-     * Integrates all search functionality into 1 function, by chaining them
+     * Integrates all search functionality into 1 function, by chaining them.
      *
      * @param Request $request
      *
@@ -87,18 +88,20 @@ class ProductSearch extends Search
             if ($this->useAJAX) {
                 return $this->findProduct();
             }
+
             return $this->findProduct()->processResult($this->results);
         } else {
             // search by SKU
             if ($this->useAJAX) {
                 return $this->searchBySku($sku);
             }
+
             return $this->searchBySku($sku)->processResult($this->results);
         }
     }
 
     /**
-     * Does the actual fetching of data, from the DB
+     * Does the actual fetching of data, from the DB.
      *
      * @return $this
      */
@@ -106,15 +109,14 @@ class ProductSearch extends Search
     {
         // in both instances below, we search both the name, and description, in order to widen our results
         if ($this->paginate) {
-
             if ($this->useAJAX) {
                 throw new InvalidArgumentException('For now, the AJAX request returns a single result, so please disable pagination first');
             }
 
             $this->results
-                = $this->includeProductRelationships()->where('name', 'LIKE', '%' . $this->keywords . '%')
-                ->orWhere('description_short', 'LIKE', '%' . $this->keywords . '%')
-                ->orWhere('description_long', 'LIKE', '%' . $this->keywords . '%')
+                = $this->includeProductRelationships()->where('name', 'LIKE', '%'.$this->keywords.'%')
+                ->orWhere('description_short', 'LIKE', '%'.$this->keywords.'%')
+                ->orWhere('description_long', 'LIKE', '%'.$this->keywords.'%')
                 ->get();
 
             $this->results = $this->paginateCollection($this->results, $this->paginationLength, $this->searchRequest);
@@ -125,17 +127,16 @@ class ProductSearch extends Search
         }
 
         $this->results =
-            $this->repository->where('name', 'LIKE', '%' . $this->keywords . '%')
-                ->orWhere('description_short', 'LIKE', '%' . $this->keywords . '%')
-                ->orWhere('description_long', 'LIKE', '%' . $this->keywords . '%')
+            $this->repository->where('name', 'LIKE', '%'.$this->keywords.'%')
+                ->orWhere('description_short', 'LIKE', '%'.$this->keywords.'%')
+                ->orWhere('description_long', 'LIKE', '%'.$this->keywords.'%')
                 ->get()->take($this->ajaxResultsLimit);
 
         return $this;
-
     }
 
     /**
-     * Defines what relationships we shall include with the fetched data
+     * Defines what relationships we shall include with the fetched data.
      *
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
@@ -145,7 +146,7 @@ class ProductSearch extends Search
     }
 
     /**
-     * Process the search results
+     * Process the search results.
      *
      * @param $result
      *
@@ -155,7 +156,7 @@ class ProductSearch extends Search
     {
         // no search results
         if (empty($this->getResult())) {
-            flash($this->emptyResultMessage . " " . $this->keywords);
+            flash($this->emptyResultMessage.' '.$this->keywords);
 
             return view($this->emptyResultsView);
         }
@@ -163,16 +164,14 @@ class ProductSearch extends Search
         // check if we have a paginated result set. This will imply that the result consisted
         // of more than 1 product
         if ($this->getResult() instanceof LengthAwarePaginator) {
-
             return view('frontend.products.index')->with($this->outputResultsVariableName, $this->results);
         }
 
         return view('frontend.products.single')->with($this->outputResultsVariableName, $this->results);
-
     }
 
     /**
-     * Allows a user to search for a product by SKU
+     * Allows a user to search for a product by SKU.
      *
      * @param $sku
      *
@@ -204,8 +203,8 @@ class ProductSearch extends Search
             if ($this->results instanceof Collection) {
                 foreach ($this->results as $product) {
                     $suggestions[] = [
-                        "value" => $product->name,
-                        "data" => $product->id,
+                        'value'    => $product->name,
+                        'data'     => $product->id,
                         'redirect' => route('product.view', ['product' => $product->id]),
                     ];
                 }

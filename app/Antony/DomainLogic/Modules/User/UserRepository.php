@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\User;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\User;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\User;
@@ -33,9 +35,7 @@ class UserRepository extends EloquentRepository
     public function createAccount($data, $enforceEmailActivation = true)
     {
         $this->model->creating(function ($user) use ($enforceEmailActivation) {
-
             $enforceEmailActivation ? $user->confirmation_code = $this->generateConfirmationCode() : $user->confirmed = true;
-
         });
 
         $data['password'] = app('hash')->needsRehash($data['password']) ? app('hash')->make($data['password']) : $data['password'];
@@ -46,7 +46,7 @@ class UserRepository extends EloquentRepository
     }
 
     /**
-     * Generate a user's email confirmation code
+     * Generate a user's email confirmation code.
      *
      * @return string
      */
@@ -56,11 +56,11 @@ class UserRepository extends EloquentRepository
     }
 
     /**
-     * Creates a user in our system using data from an OAUTH provider API
+     * Creates a user in our system using data from an OAUTH provider API.
      *
      * @param SocialiteUser $user
+     * @param array         $params
      *
-     * @param array $params
      * @return static
      */
     public function createUserUsingDataFromAPI(SocialiteUser $user, $params = [])
@@ -82,26 +82,26 @@ class UserRepository extends EloquentRepository
     /**
      * @param SocialiteUser $user
      * @param $params
+     *
      * @return array
      */
     protected function getUserData(SocialiteUser $user, $params)
     {
-
         $user_data = $user->map($user->user);
 
         return [
 
             'first_name' => array_get($user_data->name, 'familyName'),
-            'last_name' => array_get($user_data->name, 'givenName'),
-            'avatar' => $user_data->avatar,
-            'email' => $user->getEmail(),
-            'gender' => $user_data->gender,
-            'password' => app('hash')->make($params['password']),
+            'last_name'  => array_get($user_data->name, 'givenName'),
+            'avatar'     => $user_data->avatar,
+            'email'      => $user->getEmail(),
+            'gender'     => $user_data->gender,
+            'password'   => app('hash')->make($params['password']),
         ];
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */

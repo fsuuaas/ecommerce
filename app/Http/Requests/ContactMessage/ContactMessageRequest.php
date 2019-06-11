@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\ContactMessage;
+<?php
+
+namespace App\Http\Requests\ContactMessage;
 
 use App\Http\Requests\Request;
 
 class ContactMessageRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,9 +24,9 @@ class ContactMessageRequest extends Request
     public function rules()
     {
         return [
-            'message' => 'required|between:1,500',
-            'subject' => 'sometimes|between:1,50',
-            'email' => 'required|email',
+            'message'              => 'required|between:1,500',
+            'subject'              => 'sometimes|between:1,50',
+            'email'                => 'required|email',
             'g-recaptcha-response' => 'required|recaptcha',
         ];
     }
@@ -34,9 +35,8 @@ class ContactMessageRequest extends Request
     {
         return [
             'g-recaptcha-response.required' => 'You need to solve the recaptcha',
-            'message.required' => 'Please enter a message',
-            'email.required' => 'Your email address is required',
+            'message.required'              => 'Please enter a message',
+            'email.required'                => 'Your email address is required',
         ];
     }
-
 }

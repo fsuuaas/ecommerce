@@ -1,8 +1,9 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Database;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Database;
 
 interface RepositoryInterface
 {
-
     /**
      * @param array $relationships
      *
@@ -12,28 +13,31 @@ interface RepositoryInterface
 
     /**
      * @param array $relationships
-     * @param bool $simplePaginate
-     * @param int $pages
+     * @param bool  $simplePaginate
+     * @param int   $pages
+     *
      * @return mixed
      */
     public function paginate($relationships = [], $simplePaginate = false, $pages = 10);
 
     /**
      * @param array $columns
+     *
      * @return mixed
      */
     public function all(array $columns = ['*']);
 
     /**
-     * Allows an object to be added to the database
+     * Allows an object to be added to the database.
      *
      * @param array $data object properties, encapsulated in an array
      */
     public function add($data);
 
     /**
-     * Allows an object to be added to the database, only if it doesnt exist there
-     * @param mixed $id The object key, e.g a primary key value
+     * Allows an object to be added to the database, only if it doesnt exist there.
+     *
+     * @param mixed $id   The object key, e.g a primary key value
      * @param array $data The attributes of the object to be added
      */
     public function addIfNotExist($id, $data);
@@ -41,10 +45,9 @@ interface RepositoryInterface
     /**
      * @param $id
      * @param array $relationships
-     *
-     * @param bool $throwExceptionIfNotFound
-     *
+     * @param bool  $throwExceptionIfNotFound
      * @param array $columns
+     *
      * @return mixed
      */
     public function find($id, $relationships = [], $throwExceptionIfNotFound = true, $columns = ['*']);
@@ -53,8 +56,8 @@ interface RepositoryInterface
      * @param $key
      * @param $operator
      * @param $value
-     *
      * @param array $columns
+     *
      * @return mixed
      */
     public function where($key, $operator, $value, $columns = ['*']);

@@ -1,10 +1,11 @@
-<?php namespace app\Antony\DomainLogic\Modules\Checkout;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Checkout;
 
 use Illuminate\Http\Request;
 
 trait CheckoutRedirector
 {
-
     /**
      * @param Request $request
      *
@@ -24,14 +25,12 @@ trait CheckoutRedirector
             }
         } elseif (is_null($success)) {
             if ($request->ajax()) {
-                return response()->json(['message' => "You had already done this step", 'stepData' => $this->retrieveStepData(), 'target' => route($this->nextStepRoute)]);
+                return response()->json(['message' => 'You had already done this step', 'stepData' => $this->retrieveStepData(), 'target' => route($this->nextStepRoute)]);
             }
-            flash()->overlay("You had already done this step");
+            flash()->overlay('You had already done this step');
 
             return redirect()->route($this->nextStepRoute);
-
         } else {
-
             if ($request->ajax()) {
                 return response()->json(['message' => 'An error occurred. Please try again', 'stepData' => $this->retrieveStepData()]);
             }
@@ -46,11 +45,10 @@ trait CheckoutRedirector
      */
     public function getSuccessStatus()
     {
-
         if ($this->getStepStatus() === AbstractCheckoutProcessor::STEP_COMPLETE) {
             return true;
         } elseif ($this->getStepStatus() === AbstractCheckoutProcessor::STEP_ALREADY_DONE) {
-            return null;
+            return;
         } else {
             return false;
         }

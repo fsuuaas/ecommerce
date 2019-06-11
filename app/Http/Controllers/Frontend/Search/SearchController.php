@@ -6,12 +6,10 @@ use App\Antony\DomainLogic\Modules\Product\ProductSearch;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Search\SearchRequest;
 
-
 class SearchController extends Controller
 {
-
     /**
-     * Product search module
+     * Product search module.
      *
      * @var ProductSearch
      */
@@ -53,7 +51,5 @@ class SearchController extends Controller
         }
 
         return $this->model->search($request);
-
     }
-
 }

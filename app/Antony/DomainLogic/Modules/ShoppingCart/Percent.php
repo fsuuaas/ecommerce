@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\ShoppingCart;
 
 class Percent
 {
@@ -8,10 +10,9 @@ class Percent
     private $value;
 
     /**
-     * Create a new Percent
+     * Create a new Percent.
      *
      * @param int $value
-     *
      */
     public function __construct($value)
     {
@@ -19,7 +20,7 @@ class Percent
     }
 
     /**
-     * Return the value as an int
+     * Return the value as an int.
      *
      * @return int
      */

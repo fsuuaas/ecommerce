@@ -8,7 +8,6 @@ use App\Http\Requests\ContactMessage\ContactMessageRequest;
 
 class InfoController extends Controller
 {
-
     /**
      * @var ContactMessageRepository
      */
@@ -19,14 +18,13 @@ class InfoController extends Controller
      */
     public function __construct(ContactMessageRepository $contactMessageRepo)
     {
-
         $this->msg = $contactMessageRepo;
 
         $this->useOverlay = true;
     }
 
     /**
-     * Display the about page
+     * Display the about page.
      *
      * @return \Illuminate\View\View
      */
@@ -35,9 +33,8 @@ class InfoController extends Controller
         return view('frontend.info.about');
     }
 
-
     /**
-     * Display the terms of agreement page
+     * Display the terms of agreement page.
      *
      * @return \Illuminate\View\View
      */
@@ -46,9 +43,8 @@ class InfoController extends Controller
         return view('frontend.info.policy');
     }
 
-
     /**
-     * Display the contact page
+     * Display the contact page.
      *
      * @return \Illuminate\View\View
      */
@@ -58,7 +54,7 @@ class InfoController extends Controller
     }
 
     /**
-     * Save a contact message
+     * Save a contact message.
      *
      * @param ContactMessageRequest $request
      *
@@ -66,11 +62,10 @@ class InfoController extends Controller
      */
     public function postContactMessage(ContactMessageRequest $request)
     {
-        $this->data = $this->msg->send($request->except("_session, g-recaptcha-response"));
+        $this->data = $this->msg->send($request->except('_session, g-recaptcha-response'));
 
-        $this->setSuccessMessage("Your message was sent successfully. Thank you");
+        $this->setSuccessMessage('Your message was sent successfully. Thank you');
 
         return $this->handleRedirect($request);
     }
-
 }

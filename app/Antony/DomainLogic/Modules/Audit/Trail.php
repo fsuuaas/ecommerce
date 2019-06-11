@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Trail extends EloquentRepository
 {
-
     protected $event;
 
     protected $actor;
@@ -26,7 +25,6 @@ class Trail extends EloquentRepository
     public function getEventActor()
     {
         if (auth()->check()) {
-
             $this->actor = auth()->user()->getAuthIdentifier();
 
             return $this->actor;
@@ -45,12 +43,10 @@ class Trail extends EloquentRepository
 
     public function saveEventInformation(array $data)
     {
-
-
     }
 
-
-    public function getEventData(){
+    public function getEventData()
+    {
         // timestamp
         $timestamp = Carbon::now()->timestamp;
         $actor_id = $this->actor;
@@ -62,11 +58,11 @@ class Trail extends EloquentRepository
     // update the info table
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
-     *
-     */public function model()
+     */
+    public function model()
     {
         return Event::class;
     }

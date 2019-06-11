@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\User;
+<?php
+
+namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
 
 class DeleteUsrRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,5 +27,4 @@ class DeleteUsrRequest extends Request
             //
         ];
     }
-
 }

@@ -12,14 +12,14 @@ use Illuminate\Http\Response;
 class UserRolesController extends Controller
 {
     /**
-     * The roles repository
+     * The roles repository.
      *
      * @var RolesRepository
      */
     protected $role;
 
     /**
-     * The user repository
+     * The user repository.
      *
      * @var UserRepository
      */
@@ -27,8 +27,7 @@ class UserRolesController extends Controller
 
     /**
      * @param RolesRepository $rolesRepository
-     * @param UserRepository $userRepository
-     *
+     * @param UserRepository  $userRepository
      */
     public function __construct(RolesRepository $rolesRepository, UserRepository $userRepository)
     {
@@ -51,7 +50,7 @@ class UserRolesController extends Controller
     }
 
     /**
-     * assign a role to a user
+     * assign a role to a user.
      *
      * @return Response
      */
@@ -61,7 +60,7 @@ class UserRolesController extends Controller
     }
 
     /**
-     * Assign roles to a user
+     * Assign roles to a user.
      *
      * @return Response
      */
@@ -77,7 +76,7 @@ class UserRolesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -87,13 +86,12 @@ class UserRolesController extends Controller
         $user = $this->user->getFirstBy('id', '=', $id, ['roles']);
 
         return view('backend.access-control.RevokeRoles', compact('user'));
-
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -106,7 +104,7 @@ class UserRolesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -114,5 +112,4 @@ class UserRolesController extends Controller
     {
         //
     }
-
 }

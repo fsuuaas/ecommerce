@@ -13,7 +13,7 @@ use yajra\Datatables\Datatables;
 class SubCategoriesController extends Controller
 {
     /**
-     * The subcategories entity
+     * The subcategories entity.
      *
      * @var SubCategoriesRepository
      */
@@ -28,7 +28,7 @@ class SubCategoriesController extends Controller
     }
 
     /**
-     * Display a listing of sub categories
+     * Display a listing of sub categories.
      *
      * @return Response
      */
@@ -42,7 +42,6 @@ class SubCategoriesController extends Controller
      */
     public function getDataTable()
     {
-
         $categories = $this->subcategory->with(['category'])->select('*');
 
         $data = Datatables::of($categories)->addColumn('edit', function ($subcat) {
@@ -53,7 +52,7 @@ class SubCategoriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new subCategory
+     * Show the form for creating a new subCategory.
      *
      * @return Response
      */
@@ -80,6 +79,7 @@ class SubCategoriesController extends Controller
      * Display the specified SubCategory.
      *
      * @param SubCategory $subcategory
+     *
      * @return Response
      */
     public function show(SubCategory $subcategory)
@@ -91,6 +91,7 @@ class SubCategoriesController extends Controller
      * Show the form for editing the specified SubCategory.
      *
      * @param SubCategory $subcategory
+     *
      * @return Response
      */
     public function edit(SubCategory $subcategory)
@@ -116,10 +117,11 @@ class SubCategoriesController extends Controller
      * Remove the specified subCategory from storage.
      *
      * @param DeleteInventoryRequest $request
+     * @param SubCategory            $subCategory
      *
-     * @param SubCategory $subCategory
-     * @return Response
      * @throws \Exception
+     *
+     * @return Response
      */
     public function destroy(DeleteInventoryRequest $request, SubCategory $subCategory)
     {
@@ -127,5 +129,4 @@ class SubCategoriesController extends Controller
 
         return $this->handleRedirect($request, route('backend.subcategories.index'));
     }
-
 }

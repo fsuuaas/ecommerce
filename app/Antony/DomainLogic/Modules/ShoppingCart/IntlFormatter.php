@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\ShoppingCart;
 
 use app\Antony\DomainLogic\Contracts\ShoppingCart\Formatter;
 use NumberFormatter;
@@ -19,7 +21,7 @@ class IntlFormatter implements Formatter
     }
 
     /**
-     * @param  string $locale
+     * @param string $locale
      *
      * @return static
      */

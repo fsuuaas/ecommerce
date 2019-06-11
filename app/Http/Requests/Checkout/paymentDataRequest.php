@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Checkout;
+<?php
+
+namespace App\Http\Requests\Checkout;
 
 use App\Http\Requests\Request;
 
 class paymentDataRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,9 +24,8 @@ class paymentDataRequest extends Request
     public function rules()
     {
         return [
-            'cardName' => 'required|alpha_dash|between:1,30',
-            'cardNumber' => 'required|numeric'
+            'cardName'   => 'required|alpha_dash|between:1,30',
+            'cardNumber' => 'required|numeric',
         ];
     }
-
 }

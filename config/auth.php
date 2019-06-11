@@ -42,7 +42,7 @@ return [
     */
 
     'table' => 'users',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Password Reset Settings
@@ -59,8 +59,8 @@ return [
     */
 
     'password' => [
-        'email' => 'emails.password',
-        'table' => 'password_resets',
+        'email'  => 'emails.password',
+        'table'  => 'password_resets',
         'expire' => 120,
     ],
 

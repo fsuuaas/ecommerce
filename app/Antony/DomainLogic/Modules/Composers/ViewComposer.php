@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Composers;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Composers;
 
 use app\Antony\DomainLogic\contracts\caching\CacheInterface;
 use app\Antony\DomainLogic\Contracts\ViewComposer\ComposerInterface;
@@ -7,30 +9,29 @@ use InvalidArgumentException;
 
 abstract class ViewComposer implements ComposerInterface
 {
-
     /**
-     * output variable name
+     * output variable name.
      *
      * @var string
      */
     protected $outputVariable;
 
     /**
-     * Cache implementation
+     * Cache implementation.
      *
      * @var CacheInterface
      */
     protected $cache;
 
     /**
-     * data source
+     * data source.
      *
-     * @var Object
+     * @var object
      */
     protected $dataSource;
 
     /**
-     * Compose the View
+     * Compose the View.
      *
      * @param View $view
      *
@@ -45,9 +46,7 @@ abstract class ViewComposer implements ComposerInterface
 
         if ($this->cache->has($key)) {
             $view->with($this->outputVariable, $this->cache->get($key));
-
         } else {
-
             $data = $this->getData();
 
             $this->cache->put($key, $data);
@@ -57,23 +56,21 @@ abstract class ViewComposer implements ComposerInterface
     }
 
     /**
-     * Checks if any of our needed args are good
+     * Checks if any of our needed args are good.
      */
     protected function checkArguments()
     {
         if (is_null($this->outputVariable)) {
-
             throw new InvalidArgumentException('The output variable cannot be null');
         }
 
         if (is_null($this->cache)) {
-
             throw new InvalidArgumentException("By default, we cache the composer data for 10 minutes. But you haven't provided any caching mechanism");
         }
     }
 
     /**
-     * Gets the data from the data source provided, which will be displayed in the view
+     * Gets the data from the data source provided, which will be displayed in the view.
      *
      * @return mixed
      */

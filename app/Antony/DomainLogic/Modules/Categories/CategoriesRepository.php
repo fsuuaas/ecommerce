@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Categories;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Categories;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\Category;
@@ -7,9 +9,8 @@ use Illuminate\Support\Collection;
 
 class CategoriesRepository extends EloquentRepository
 {
-
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */
@@ -18,9 +19,8 @@ class CategoriesRepository extends EloquentRepository
         return Category::class;
     }
 
-
     /**
-     * Displays a listing of categories, with their subcategories. This is for the site navigation bar
+     * Displays a listing of categories, with their subcategories. This is for the site navigation bar.
      *
      * @return mixed
      */
@@ -29,9 +29,8 @@ class CategoriesRepository extends EloquentRepository
         return $this->with(['subcategories'])->paginate();
     }
 
-
     /**
-     * Really self explanatory. Displays products within a category
+     * Really self explanatory. Displays products within a category.
      *
      * @param $category_id
      * @param Request $request
@@ -49,13 +48,10 @@ class CategoriesRepository extends EloquentRepository
         $cat = '';
 
         foreach ($data as $category) {
-
             $cat = $category;
             foreach ($category->products as $product) {
-
                 $collection->push($product);
             }
-
         }
 
         $pages = $this->paginateCollection($collection, 5, $request);
@@ -64,7 +60,7 @@ class CategoriesRepository extends EloquentRepository
     }
 
     /**
-     * Displays categories on the site's navigation bar
+     * Displays categories on the site's navigation bar.
      *
      * @return mixed
      */

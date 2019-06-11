@@ -13,7 +13,7 @@ use yajra\Datatables\Datatables;
 class CountiesController extends Controller
 {
     /**
-     * The counties module
+     * The counties module.
      *
      * @var CountiesRepository
      */
@@ -28,7 +28,7 @@ class CountiesController extends Controller
     }
 
     /**
-     * Display a listing of categories
+     * Display a listing of categories.
      *
      * @return Response
      */
@@ -42,7 +42,6 @@ class CountiesController extends Controller
      */
     public function getDataTable()
     {
-
         $counties = $this->county->select(['id', 'name', 'alias', 'created_at', 'updated_at']);
 
         $data = Datatables::of($counties)->addColumn('edit', function ($county) {
@@ -53,7 +52,7 @@ class CountiesController extends Controller
     }
 
     /**
-     * Show the form for creating a new county
+     * Show the form for creating a new county.
      *
      * @return Response
      */
@@ -80,6 +79,7 @@ class CountiesController extends Controller
      * Display the specified county.
      *
      * @param County $county
+     *
      * @return Response
      */
     public function show(County $county)
@@ -91,8 +91,8 @@ class CountiesController extends Controller
      * Show the form for editing the specified county.
      *
      * @param County $county
-     * @return Response
      *
+     * @return Response
      */
     public function edit(County $county)
     {
@@ -103,8 +103,8 @@ class CountiesController extends Controller
      * Update the specified county in storage.
      *
      * @param CountyRequest $request
+     * @param County        $county
      *
-     * @param County $county
      * @return Response
      */
     public function update(CountyRequest $request, County $county)
@@ -118,10 +118,11 @@ class CountiesController extends Controller
      * Remove the specified county from storage.
      *
      * @param DeleteCountyRequest $request
+     * @param County              $county
      *
-     * @param County $county
-     * @return Response
      * @throws \Exception
+     *
+     * @return Response
      */
     public function destroy(DeleteCountyRequest $request, County $county)
     {
@@ -129,5 +130,4 @@ class CountiesController extends Controller
 
         return $this->handleRedirect($request, route('backend.counties.index'));
     }
-
 }

@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Security;
+<?php
+
+namespace App\Http\Requests\Security;
 
 use App\Http\Requests\Request;
 
 class AssignRolesRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,8 +28,7 @@ class AssignRolesRequest extends Request
         return [
             // using an array will allow an admin to assign multiple roles to a user
             'role_id' => 'required|array',
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'required|exists:users,id',
         ];
     }
-
 }

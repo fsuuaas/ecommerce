@@ -1,13 +1,14 @@
-<?php namespace app\Antony\DomainLogic\Modules\Product\Traits;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Product\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 trait ProductTrait
 {
-
     /**
-     * Returns the name of a product
+     * Returns the name of a product.
      *
      * @return string
      */
@@ -17,7 +18,7 @@ trait ProductTrait
     }
 
     /**
-     * Determines if a product is new
+     * Determines if a product is new.
      *
      * @return bool
      */
@@ -29,7 +30,7 @@ trait ProductTrait
     }
 
     /**
-     * Checks if a product is taxable
+     * Checks if a product is taxable.
      *
      * @return bool
      */
@@ -39,7 +40,7 @@ trait ProductTrait
     }
 
     /**
-     * Checks is a product needs to display a low warning in stock message to the client
+     * Checks is a product needs to display a low warning in stock message to the client.
      *
      * @return bool
      */
@@ -49,7 +50,7 @@ trait ProductTrait
     }
 
     /**
-     * determine if a product has ran out of stock
+     * determine if a product has ran out of stock.
      *
      * @return bool
      */
@@ -59,7 +60,7 @@ trait ProductTrait
     }
 
     /**
-     * Checks if a product needs a text input field for quantity
+     * Checks if a product needs a text input field for quantity.
      *
      * @return bool
      */
@@ -69,13 +70,12 @@ trait ProductTrait
     }
 
     /**
-     * Displays products related to the current product
+     * Displays products related to the current product.
      *
      * @return Collection
      */
     public function getRelated()
     {
-
         $currentProduct = $this;
 
         $data = $this->subcategory()->with('products.reviews')->whereId($this->subcategory->id)->get();
@@ -83,7 +83,6 @@ trait ProductTrait
         // if a product related to the current product's subcategory wasn't found, we try finding
         // those related to it's category
         if ($data->count() === 0) {
-
             $data = $this->category()->with('products.reviews')->whereId($this->category->id)->get();
         }
 
@@ -91,19 +90,14 @@ trait ProductTrait
 
         // streamline the collection to only include the product objects
         foreach ($data as $subcategory) {
-
             foreach ($subcategory->products as $product) {
-
                 $output->push($product);
             }
-
         }
 
         // prevent the current product from being displayed in this list, and also limit items returned to 10
         $output = $output->filter(function ($item) use ($currentProduct) {
-
             return $item->id !== $currentProduct->id;
-
         })->take(10);
 
         return $output->sortBy(function ($p) {

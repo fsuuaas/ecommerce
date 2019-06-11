@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Shared;
+<?php
+
+namespace App\Http\Controllers\Shared;
 
 use app\Antony\DomainLogic\Modules\Authentication\ResetPasswords;
 use app\Http\Controllers\Base\Redirectors\ResetPasswordsRedirector;
@@ -12,7 +14,7 @@ class PasswordController extends Controller
     use ResetPasswordsRedirector;
 
     /**
-     * The password reset module
+     * The password reset module.
      *
      * @var ResetPasswords
      */
@@ -28,17 +30,18 @@ class PasswordController extends Controller
     }
 
     /**
-     * Displays the form to allow a user to enter their email
+     * Displays the form to allow a user to enter their email.
      *
      * @param Request $request
+     *
      * @return \Illuminate\View\View
      */
     public function getEmail(Request $request)
     {
         if (eq($request->segment(1), 'backend')) {
-
             return view('backend.auth.forgot_password');
         }
+
         return view('auth.forgot_password');
     }
 
@@ -62,9 +65,9 @@ class PasswordController extends Controller
     public function getReset($token)
     {
         if (is_null($token)) {
-
             throw new NotFoundHttpException('No token present in the current request');
         }
+
         return view('auth.reset')->with('token', $token);
     }
 
@@ -78,6 +81,5 @@ class PasswordController extends Controller
         $this->data = $this->passwords->resetPassword($request->all());
 
         return $this->getPasswordResetResponse($request);
-
     }
 }

@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Security;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Security;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
@@ -7,14 +9,13 @@ use Illuminate\Container\Container;
 
 class PermissionsRepo extends EloquentRepository
 {
-
     protected $roles;
 
     protected $user;
 
     /**
-     * @param Container $container
-     * @param UserRepository $userRepository
+     * @param Container       $container
+     * @param UserRepository  $userRepository
      * @param RolesRepository $rolesRepository
      */
     public function __construct(Container $container, UserRepository $userRepository, RolesRepository $rolesRepository)
@@ -34,7 +35,6 @@ class PermissionsRepo extends EloquentRepository
      */
     public function assign($id, array $roles)
     {
-
         $permission = $this->find($id);
 
         //dd($permission);
@@ -46,11 +46,10 @@ class PermissionsRepo extends EloquentRepository
         }
 
         return 1;
-
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */

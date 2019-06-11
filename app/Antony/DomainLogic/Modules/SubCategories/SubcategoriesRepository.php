@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\SubCategories;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\SubCategories;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\SubCategory;
@@ -7,9 +9,8 @@ use Illuminate\Support\Collection;
 
 class SubcategoriesRepository extends EloquentRepository
 {
-
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */
@@ -37,10 +38,9 @@ class SubcategoriesRepository extends EloquentRepository
     }
 
     /**
-     * Display products related to another product
+     * Display products related to another product.
      *
      * @param $subcategory_id
-     *
      * @param Request $request
      *
      * @return mixed
@@ -56,13 +56,10 @@ class SubcategoriesRepository extends EloquentRepository
         $sub = '';
 
         foreach ($data as $subcategory) {
-
             $sub = $subcategory;
             foreach ($subcategory->products as $product) {
-
                 $collection->push($product);
             }
-
         }
 
         $pages = $this->paginateCollection($collection, 5, $request);
@@ -71,13 +68,12 @@ class SubcategoriesRepository extends EloquentRepository
     }
 
     /**
-     * Display featured laptops
+     * Display featured laptops.
      *
      * @return mixed
      */
     public function displayFeaturedLaptops()
     {
-
         $data = $this->with(['products.reviews', 'products.brand'])->where('name', 'like', 'laptop%')->orWhere('name', 'like', 'ultrabook%')->take(20)->get();
 
         // sort the products by their total price => price + tax + discount
@@ -87,7 +83,7 @@ class SubcategoriesRepository extends EloquentRepository
     }
 
     /**
-     * Creates a custom data collection of products
+     * Creates a custom data collection of products.
      *
      * @param $data
      *
@@ -98,12 +94,9 @@ class SubcategoriesRepository extends EloquentRepository
         $collection = new Collection();
 
         foreach ($data as $subcategory) {
-
             foreach ($subcategory->products as $product) {
-
                 $collection->push($product);
             }
-
         }
 
         // we just sort them alphabetically
@@ -113,7 +106,7 @@ class SubcategoriesRepository extends EloquentRepository
     }
 
     /**
-     * Display featured tablets
+     * Display featured tablets.
      *
      * @return mixed
      */
@@ -125,7 +118,7 @@ class SubcategoriesRepository extends EloquentRepository
     }
 
     /**
-     * Display featured phones
+     * Display featured phones.
      *
      * @param $phone
      *

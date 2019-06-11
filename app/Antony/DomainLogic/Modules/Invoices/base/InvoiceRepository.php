@@ -1,11 +1,12 @@
-<?php namespace app\Antony\DomainLogic\Modules\Invoices\base;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Invoices\base;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use app\Models\Invoice;
 
 class InvoiceRepository extends EloquentRepository
 {
-
     /**
      * @param $data
      *
@@ -14,9 +15,7 @@ class InvoiceRepository extends EloquentRepository
     public function add($data)
     {
         $this->model->creating(function ($invoice) use ($data) {
-
             $invoice->id = $this->generateInvoiceID();
-
         });
 
         $this->model->order()->associate(array_get($data, 'order'));
@@ -33,7 +32,7 @@ class InvoiceRepository extends EloquentRepository
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */

@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Shared;
+<?php
+
+namespace App\Http\Controllers\Shared;
 
 use app\Antony\DomainLogic\Modules\Authentication\RegisterUser as AuthenticateUser;
 use app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2\oauth2ActionsHandler;
@@ -28,7 +30,7 @@ class AuthController extends Controller
 
     /**
      * @param AuthenticateUser $authenticateUser
-     * @param Request $request
+     * @param Request          $request
      */
     public function __construct(AuthenticateUser $authenticateUser, Request $request)
     {
@@ -37,7 +39,6 @@ class AuthController extends Controller
         $this->auth = $authenticateUser;
         $this->request = $request;
         $this->backend = eq($request->segment(1), 'backend') ? true : false;
-
     }
 
     /**
@@ -68,7 +69,6 @@ class AuthController extends Controller
     public function getLogout()
     {
         return $this->logOutAndRedirect();
-
     }
 
     /**
@@ -97,18 +97,19 @@ class AuthController extends Controller
     }
 
     /**
-     * Activates a users account
+     * Activates a users account.
      *
      * @param Request $request
      * @param $code
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getActivate(Request $request, $code)
     {
         if (is_null($code)) {
-
             throw new NotFoundHttpException('An activation code is required, but was not found');
         }
+
         return $this->auth->activate($code);
     }
 }

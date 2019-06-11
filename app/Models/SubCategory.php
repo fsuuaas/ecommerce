@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use app\Antony\DomainLogic\Presenters\NamePresenter;
 use Carbon\Carbon;
@@ -8,7 +10,6 @@ use Laracasts\Presenter\PresentableTrait;
 
 class SubCategory extends Eloquent
 {
-
     use SoftDeletes, PresentableTrait;
 
     protected $presenter = NamePresenter::class;

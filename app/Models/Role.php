@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Carbon\Carbon;
 use Zizaco\Entrust\EntrustRole;
@@ -36,5 +38,4 @@ class Role extends EntrustRole
     {
         return Carbon::parse($value)->format('d/m/Y H:i:s');
     }
-
 }

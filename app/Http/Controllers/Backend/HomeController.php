@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 
-
 class HomeController extends Controller
 {
-
     /**
-     * Displays the backend home page
+     * Displays the backend home page.
      *
      * @return \Illuminate\View\View
      */
@@ -17,5 +15,4 @@ class HomeController extends Controller
     {
         return view('backend.index');
     }
-
 }

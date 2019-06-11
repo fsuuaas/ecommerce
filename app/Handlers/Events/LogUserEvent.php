@@ -1,11 +1,11 @@
-<?php namespace App\Handlers\Events;
+<?php
+
+namespace App\Handlers\Events;
 
 use app\Antony\DomainLogic\Modules\Audit\Trail;
 use App\Events\UserWasLoggedIn;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class LogUserEvent
 {
@@ -28,8 +28,9 @@ class LogUserEvent
     /**
      * Handle the event.
      *
-     * @param  UserWasLoggedIn  $event
-     * @return boolean
+     * @param UserWasLoggedIn $event
+     *
+     * @return bool
      */
     public function handle(User $user)
     {
@@ -39,16 +40,16 @@ class LogUserEvent
     /**
      * @return mixed
      */
-    public function updateLoginTime($user){
-
+    public function updateLoginTime($user)
+    {
         $user->last_login = Carbon::now();
 
         return $user->save();
     }
 
-    public function updateAuditTrail(){
+    public function updateAuditTrail()
+    {
 
         // save the event name in the DB if it doesn't exist
-
     }
 }

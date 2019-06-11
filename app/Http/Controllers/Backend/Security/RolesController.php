@@ -8,11 +8,10 @@ use App\Http\Requests\Security\RolesRequest;
 use Illuminate\Http\Request;
 use Response;
 
-
 class RolesController extends Controller
 {
     /**
-     * The roles repository
+     * The roles repository.
      *
      * @var \app\Antony\DomainLogic\Modules\Security\RolesRepository
      */
@@ -28,7 +27,7 @@ class RolesController extends Controller
 
     /**
      * Display a listing of the resource.
-     * GET /roles
+     * GET /roles.
      *
      * @return Response
      */
@@ -41,7 +40,7 @@ class RolesController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * GET /roles/create
+     * GET /roles/create.
      *
      * @return Response
      */
@@ -52,7 +51,7 @@ class RolesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * POST /roles
+     * POST /roles.
      *
      * @return Response
      */
@@ -69,9 +68,9 @@ class RolesController extends Controller
 
     /**
      * Display the specified resource.
-     * GET /roles/{id}
+     * GET /roles/{id}.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -84,9 +83,9 @@ class RolesController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * GET /roles/{id}/edit
+     * GET /roles/{id}/edit.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -99,10 +98,10 @@ class RolesController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * PUT /roles/{id}
+     * PUT /roles/{id}.
      *
      * @param Request $request
-     * @param  int $id
+     * @param int     $id
      *
      * @return Response
      */
@@ -111,7 +110,7 @@ class RolesController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required|alpha_dash|between:2,30|unique:roles,id,' . $request->user()->roles->implode('id'),
+                'name' => 'required|alpha_dash|between:2,30|unique:roles,id,'.$request->user()->roles->implode('id'),
             ]
         );
 
@@ -124,9 +123,9 @@ class RolesController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * DELETE /roles/{id}
+     * DELETE /roles/{id}.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -141,7 +140,5 @@ class RolesController extends Controller
         flash()->error('Delete failed. Please try again later');
 
         return redirect()->back();
-
     }
-
 }

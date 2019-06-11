@@ -1,17 +1,18 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Orders;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Orders;
 
 interface ProductOrderContract
 {
-
     /**
-     * Constant representing a cancelled order
+     * Constant representing a cancelled order.
      *
      * @var string
      */
     const ORDER_CANCELLED = 'order.cancelled';
 
     /**
-     * Constant representing a successful order(product delivery)
+     * Constant representing a successful order(product delivery).
      *
      * @var string
      */

@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Checkout\AuthUser;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Checkout\AuthUser;
 
 use app\Antony\DomainLogic\Modules\Checkout\AbstractCheckoutProcessor;
 
@@ -18,7 +20,7 @@ class PaymentStep extends AbstractCheckoutProcessor
     }
 
     /**
-     * process the current step in the checkout process
+     * process the current step in the checkout process.
      *
      * @param $data
      *

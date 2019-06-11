@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use App\Antony\DomainLogic\Modules\User\UserTrait;
 use app\Antony\DomainLogic\Presenters\UserPresenter;
@@ -7,13 +9,11 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laracasts\Presenter\PresentableTrait;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract
 {
-
     use PresentableTrait, Authenticatable, CanResetPassword, EntrustUserTrait, UserTrait;
 
     protected $presenter = UserPresenter::class;
@@ -41,14 +41,14 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
         'town',
         'avatar',
         'dob',
-        'gender'
+        'gender',
     ];
 
     protected $guarded = ['id', 'confirmed', 'confirmation_code'];
 
     protected $casts = [
         'confirmed' => 'boolean',
-        'disabled' => 'boolean',
+        'disabled'  => 'boolean',
     ];
 
     /**
@@ -82,7 +82,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
         return $this->belongsTo(\App\Models\County::class);
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -98,5 +97,4 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
     {
         return $this->belongsToMany(\App\Models\Order::class)->withTimestamps();
     }
-
 }

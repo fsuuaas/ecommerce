@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Authentication;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Authentication;
 
 class AuthenticateUser extends ApplicationAuthProvider
 {

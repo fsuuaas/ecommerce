@@ -9,7 +9,6 @@ use Illuminate\Http\Response;
 
 class ProductsController extends Controller
 {
-
     protected $products;
 
     /**
@@ -21,7 +20,7 @@ class ProductsController extends Controller
     }
 
     /**
-     * Display a listing of products
+     * Display a listing of products.
      *
      * @return Response
      */
@@ -38,7 +37,6 @@ class ProductsController extends Controller
      * @param Product $p
      *
      * @return Response
-     *
      */
     public function show(Product $p)
     {

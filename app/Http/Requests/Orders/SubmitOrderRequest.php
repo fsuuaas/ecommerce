@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Orders;
+<?php
+
+namespace App\Http\Requests\Orders;
 
 use App\Http\Requests\Request;
 
 class SubmitOrderRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *

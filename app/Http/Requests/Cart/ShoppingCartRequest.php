@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Cart;
+<?php
+
+namespace App\Http\Requests\Cart;
 
 use App\Http\Requests\Request;
 
 class ShoppingCartRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,15 +24,14 @@ class ShoppingCartRequest extends Request
     public function rules()
     {
         return [
-            'quantity' => 'sometimes|numeric|between:1,' . $this->get('qt', 1),
+            'quantity' => 'sometimes|numeric|between:1,'.$this->get('qt', 1),
         ];
     }
 
     public function messages()
     {
         return [
-            'quantity.between' => 'The product quantity provided is invalid'
+            'quantity.between' => 'The product quantity provided is invalid',
         ];
     }
-
 }

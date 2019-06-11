@@ -6,7 +6,6 @@
 
 // authentication
 Route::group(['prefix' => 'backend', 'middleware' => ['backend-access']], function () {
-
     get('login', ['as' => 'backend.login', 'uses' => 'Shared\AuthController@getLogin']);
     post('login', ['as' => 'backend.login.post', 'uses' => 'Shared\AuthController@postLogin']);
     get('logout', ['as' => 'backend.logout', 'uses' => 'Shared\AuthController@getLogout']);
@@ -45,12 +44,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['backend-access', 'auth.ba
         Route::group(['prefix' => 'access-control'], function () {
             resource('roles', 'Backend\Security\UserRolesController');
         });
-
     });
 
     // other user's accounts
     Route::group(['prefix' => 'accounts'], function () {
-
         patch('/resetPassword/{user_id}', ['as' => 'useraccount.password.edit', 'uses' => 'Shared\AccountController@patchAnotherUsersPassword']);
     });
 
@@ -79,15 +76,12 @@ Route::group(['prefix' => 'backend', 'middleware' => ['backend-access', 'auth.ba
     resource('users', 'Backend\Users\UsersController');
 
     // reports
-    Route::group(['prefix' => 'reports'], function(){
-
+    Route::group(['prefix' => 'reports'], function () {
         get('/sales', ['as' => 'reports.sales', 'uses' => 'Backend\Orders\OrdersController@getReport']);
-
     });
 
     // API data
     Route::group(['prefix' => 'api'], function () {
-
         get('/counties/data', ['as' => 'counties.data', 'uses' => 'Backend\Shipping\CountiesController@getDataTable']);
         get('/articles/data', ['as' => 'articles.data', 'uses' => 'Backend\Articles\ArticlesController@getDataTable']);
         get('/users/data', ['as' => 'users.data', 'uses' => 'Backend\Users\UsersController@getDataTable']);

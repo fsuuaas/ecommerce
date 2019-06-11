@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Authentication;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Authentication;
 
 use app\Antony\DomainLogic\Contracts\Security\UserRegistrationContract;
 use app\Antony\DomainLogic\Modules\Authentication\Traits\AccountActivationTrait;
@@ -8,27 +10,27 @@ use InvalidArgumentException;
 
 class RegisterUser extends AuthenticateUser implements UserRegistrationContract
 {
-    /**
+    /*
      * Allows users to activate their accounts
      */
     use AccountActivationTrait;
 
     /**
-     * The user created
+     * The user created.
      *
      * @var User
      */
     protected $user;
 
     /**
-     * Response returned after sending registration email
+     * Response returned after sending registration email.
      *
      * @var array
      */
     protected $mailResponse;
 
     /**
-     * Triggers the registration mail send event
+     * Triggers the registration mail send event.
      *
      * @return array|mixed|null
      */
@@ -36,7 +38,6 @@ class RegisterUser extends AuthenticateUser implements UserRegistrationContract
     {
         if (is_null($this->user)) {
             throw new InvalidArgumentException('A user needs to be created first');
-
         }
         $this->mailResponse = event(new UserWasRegistered($this->user));
 
@@ -44,10 +45,11 @@ class RegisterUser extends AuthenticateUser implements UserRegistrationContract
     }
 
     /**
-     * Creates a user's account
+     * Creates a user's account.
      *
      * @param array $data
-     * @param bool $enforceActivation
+     * @param bool  $enforceActivation
+     *
      * @return array|null
      */
     public function register(array $data, $enforceActivation = true)
@@ -58,24 +60,19 @@ class RegisterUser extends AuthenticateUser implements UserRegistrationContract
 
             // if no activation is required, then we log in the user automatically
             if (!$enforceActivation) {
-
                 $this->auth->login($this->user, true);
 
-                return ["user" => $this->user];
-
+                return ['user' => $this->user];
             } else {
-
                 $mailResult = $this->sendRegistrationEmail();
 
-                return ["user" => $this->user, "mailResult" => $mailResult];
-
+                return ['user' => $this->user, 'mailResult' => $mailResult];
             }
         }
-        return null;
     }
 
     /**
-     * Returns user data as JSON or otherwise
+     * Returns user data as JSON or otherwise.
      *
      * @param bool $json
      *

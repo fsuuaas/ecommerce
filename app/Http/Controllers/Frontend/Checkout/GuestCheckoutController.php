@@ -15,7 +15,6 @@ use Illuminate\Http\Response;
 
 class GuestCheckoutController extends Controller
 {
-
     /**
      * @var GuestBillingAddress
      */
@@ -33,18 +32,17 @@ class GuestCheckoutController extends Controller
 
     /**
      * @param GuestBillingAddress $guestBegin
-     * @param ShippingStep $shippingStep
+     * @param ShippingStep        $shippingStep
      */
     public function __construct(GuestBillingAddress $guestBegin, ShippingStep $shippingStep, PaymentStep $paymentStep)
     {
-
         $this->guest = $guestBegin;
         $this->shippingStep = $shippingStep;
         $this->paymentStep = $paymentStep;
     }
 
     /**
-     * checkout authentication
+     * checkout authentication.
      *
      * @return Response
      */
@@ -54,7 +52,7 @@ class GuestCheckoutController extends Controller
     }
 
     /**
-     * Step 1 of 4
+     * Step 1 of 4.
      *
      * Allow guest users to submit their personal info
      *
@@ -64,7 +62,6 @@ class GuestCheckoutController extends Controller
     {
         return $this->guest->displayGuestForm();
     }
-
 
     /**
      * @param GuestCheckoutRequest $request
@@ -77,7 +74,7 @@ class GuestCheckoutController extends Controller
     }
 
     /**
-     * Step 2 of 4
+     * Step 2 of 4.
      *
      * Displays the shipping information form for a guest user
      *
@@ -91,11 +88,12 @@ class GuestCheckoutController extends Controller
         if (is_null($guest)) {
             return redirect()->back();
         }
+
         return view('frontend.checkout.shipping', compact('guest'));
     }
 
     /**
-     * Allows guests to edit their shipping information
+     * Allows guests to edit their shipping information.
      *
      * @param GuestCheckoutRequest $request
      *
@@ -107,7 +105,7 @@ class GuestCheckoutController extends Controller
     }
 
     /**
-     * Step 3 of 4
+     * Step 3 of 4.
      *
      * Displays the payment form
      *
@@ -119,7 +117,7 @@ class GuestCheckoutController extends Controller
     }
 
     /**
-     * Allows a user to review their order
+     * Allows a user to review their order.
      *
      * @return \Illuminate\View\View
      */
@@ -129,7 +127,7 @@ class GuestCheckoutController extends Controller
     }
 
     /**
-     * Displays the account creation form for a guest user
+     * Displays the account creation form for a guest user.
      *
      * @return \Illuminate\View\View
      */
@@ -142,14 +140,13 @@ class GuestCheckoutController extends Controller
         return view('frontend.checkout.create_account');
     }
 
-
     /**
-     * This will allow users to optionally create an account before making an order
+     * This will allow users to optionally create an account before making an order.
      *
      * @param GuestCreateAccount $guestCreateAccount
-     * @param CreateAccount $user
+     * @param CreateAccount      $user
+     * @param UserRepository     $registerUser
      *
-     * @param UserRepository $registerUser
      * @return mixed
      */
     public function createAccount(GuestCreateAccount $guestCreateAccount, CreateAccount $user, UserRepository $registerUser)
@@ -160,11 +157,11 @@ class GuestCheckoutController extends Controller
         $result = $registerUser->getFirstBy('email', '=', $email);
 
         if (!is_null($result)) {
-
             flash()->warning('Your email address is already in use. Please change it');
 
             return redirect()->back();
         }
+
         return $user->createAccount($guestCreateAccount, $registerUser)->handleRedirect($guestCreateAccount);
     }
 }

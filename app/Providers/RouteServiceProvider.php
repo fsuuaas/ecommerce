@@ -1,11 +1,12 @@
-<?php namespace App\Providers;
+<?php
+
+namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {
-
     /**
      * This namespace is applied to the controller routes in your routes file.
      *
@@ -18,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router $router
+     * @param \Illuminate\Routing\Router $router
      *
      * @return void
      */
@@ -38,12 +39,10 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the routes for the application.
-     *
      */
     public function map()
     {
         $this->loadRoutesFrom(app_path('Http/routes.php'));
         $this->loadRoutesFrom(app_path('Http/CustomRoutes/backend.php'));
     }
-
 }

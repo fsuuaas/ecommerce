@@ -1,11 +1,12 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
 class BackendAuthentication
 {
-
     /**
      * The Guard implementation.
      *
@@ -16,7 +17,7 @@ class BackendAuthentication
     /**
      * Create a new filter instance.
      *
-     * @param  Guard $auth
+     * @param Guard $auth
      *
      * @return void
      */
@@ -26,10 +27,10 @@ class BackendAuthentication
     }
 
     /**
-     * This middleware does the same thing as the 'authenticate' one. Its for the backend though
+     * This middleware does the same thing as the 'authenticate' one. Its for the backend though.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -47,5 +48,4 @@ class BackendAuthentication
 
         return $next($request);
     }
-
 }

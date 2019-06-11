@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Security;
+<?php
+
+namespace App\Http\Requests\Security;
 
 use App\Http\Requests\Request;
 
 class DestructiveActionRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,8 +24,7 @@ class DestructiveActionRequest extends Request
     public function rules()
     {
         return [
-            'password' => 'required'
+            'password' => 'required',
         ];
     }
-
 }

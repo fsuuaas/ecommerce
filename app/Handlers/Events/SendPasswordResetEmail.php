@@ -1,4 +1,6 @@
-<?php namespace App\Handlers\Events;
+<?php
+
+namespace App\Handlers\Events;
 
 use App\Events\PasswordResetWasRequested;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
@@ -7,7 +9,6 @@ use Illuminate\Queue\InteractsWithQueue;
 
 class SendPasswordResetEmail
 {
-
     use InteractsWithQueue;
 
     protected $mailer;
@@ -17,7 +18,7 @@ class SendPasswordResetEmail
     /**
      * Create the event handler.
      *
-     * @param Mailer $mailer
+     * @param Mailer                   $mailer
      * @param TokenRepositoryInterface $tokens
      */
     public function __construct(Mailer $mailer, TokenRepositoryInterface $tokens)
@@ -30,7 +31,7 @@ class SendPasswordResetEmail
     /**
      * Handle the event.
      *
-     * @param  PasswordResetWasRequested $event
+     * @param PasswordResetWasRequested $event
      *
      * @return mixed
      */
@@ -48,7 +49,6 @@ class SendPasswordResetEmail
             $m->to($recipient);
 
             $m->subject($subject);
-
         });
     }
 
@@ -57,6 +57,6 @@ class SendPasswordResetEmail
      */
     public function subject()
     {
-        return "Password reset information";
+        return 'Password reset information';
     }
 }

@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\DAL;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\DAL;
 
 use app\Antony\DomainLogic\Contracts\Database\RepositoryInterface;
 use Closure;
@@ -17,7 +19,7 @@ abstract class EloquentRepository implements RepositoryInterface
     private $app;
 
     /**
-     * An Eloquent model maps to a table in the database
+     * An Eloquent model maps to a table in the database.
      *
      * @var Eloquent
      */
@@ -34,7 +36,7 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */
@@ -47,16 +49,17 @@ abstract class EloquentRepository implements RepositoryInterface
     {
         $model = $this->app->make($this->model());
 
-        if (!$model instanceof Model)
+        if (!$model instanceof Model) {
             throw new InvalidArgumentException("Class {$this->model()} must be an instance of Illuminate\\Database\\Eloquent\\Model");
-
+        }
         return $this->model = $model;
     }
 
     /**
-     * Retrieve all attributes in a table
+     * Retrieve all attributes in a table.
      *
      * @param array $columns
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function all(array $columns = ['*'])
@@ -65,7 +68,7 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * Updates a table
+     * Updates a table.
      *
      * @param $data
      * @param $id
@@ -78,21 +81,21 @@ abstract class EloquentRepository implements RepositoryInterface
         if (is_null($id)) {
             return $this->model->update($data);
         }
+
         return $this->find($id)->update($data);
     }
 
     /**
-     * find a model
+     * find a model.
      *
      * @param $id
      * @param array $relationships
-     *
-     * @param bool $throwExceptionIfNotFound
-     *
+     * @param bool  $throwExceptionIfNotFound
      * @param array $columns
+     *
      * @return Model|\Illuminate\Support\Collection|null|static
      */
-    public function find($id, $relationships = [], $throwExceptionIfNotFound = true, $columns = array('*'))
+    public function find($id, $relationships = [], $throwExceptionIfNotFound = true, $columns = ['*'])
     {
         if (!$throwExceptionIfNotFound) {
             if (empty($relationships)) {
@@ -100,20 +103,17 @@ abstract class EloquentRepository implements RepositoryInterface
             }
 
             return $this->with($relationships)->find($id, $columns);
-
         } else {
-
             if (empty($relationships)) {
                 return $this->model->findOrFail($id, $columns);
             }
 
             return $this->with($relationships)->findOrFail($id, $columns);
         }
-
     }
 
     /**
-     * Retrieve a model, with its relationships
+     * Retrieve a model, with its relationships.
      *
      * @param array $relationships
      *
@@ -125,7 +125,7 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * Deletes an id or id's from a table
+     * Deletes an id or id's from a table.
      *
      * @param array $ids
      *
@@ -141,11 +141,11 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * Retrieve paginated data from a table
+     * Retrieve paginated data from a table.
      *
      * @param array $relationships
-     * @param boolean $simplePaginate
-     * @param int $pages
+     * @param bool  $simplePaginate
+     * @param int   $pages
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
      */
@@ -155,6 +155,7 @@ abstract class EloquentRepository implements RepositoryInterface
             if ($simplePaginate) {
                 return $this->with($relationships)->simplePaginate($pages);
             }
+
             return $this->with($relationships)->paginate($pages);
         }
 
@@ -162,12 +163,13 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * Retrieve a model, and relationships if they are present
+     * Retrieve a model, and relationships if they are present.
      *
      * @param $relations
      * @param bool $get
      * @param bool $paginate
-     * @param int $pages
+     * @param int  $pages
+     *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Collection|static|static[]
      */
     public function has($relations, $get = true, $paginate = false, $pages = 10)
@@ -175,17 +177,17 @@ abstract class EloquentRepository implements RepositoryInterface
         if ($paginate) {
             return $this->model->has($relations)->paginate($pages);
         }
+
         return $get ? $this->model->has($relations)->get() : $this->model->has($relations);
     }
 
     /**
-     * Retrieve a model, and its relationships only if they are present
+     * Retrieve a model, and its relationships only if they are present.
      *
-     * @param array $relations
-     *
+     * @param array    $relations
      * @param callable $func
+     * @param array    $columns
      *
-     * @param array $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function whereHas($relations, Closure $func, $columns = ['*'])
@@ -194,21 +196,22 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * Find a single entity by key value
+     * Find a single entity by key value.
      *
      * @param string $key
-     * @param null $operator
+     * @param null   $operator
      * @param string $value
-     * @param array $relationships
+     * @param array  $relationships
+     * @param array  $columns
      *
-     * @param array $columns
      * @return mixed
      */
-    public function getFirstBy($key, $operator = null, $value, array $relationships = [], $columns = array('*'))
+    public function getFirstBy($key, $operator, $value, array $relationships = [], $columns = ['*'])
     {
         if (empty($relationships)) {
             return $this->where($key, $operator, $value)->first();
         }
+
         return $this->with($relationships)->where($key, $operator, $value)->get($columns)->first();
     }
 
@@ -216,35 +219,36 @@ abstract class EloquentRepository implements RepositoryInterface
      * @param $key
      * @param $operator
      * @param $value
-     *
      * @param array $columns
+     *
      * @return mixed
      */
-    public function where($key, $operator, $value, $columns = array('*'))
+    public function where($key, $operator, $value, $columns = ['*'])
     {
         return $this->model->where($key, $operator, $value)->get($columns);
     }
 
     /**
-     * Find many entities by key value
+     * Find many entities by key value.
      *
      * @param string $key
-     * @param null $operator
+     * @param null   $operator
      * @param string $value
-     * @param array $relationships
+     * @param array  $relationships
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getManyBy($key, $operator = null, $value, array $relationships = [], $columns = array('*'))
+    public function getManyBy($key, $operator, $value, array $relationships = [], $columns = ['*'])
     {
         if (empty($relationships)) {
             return $this->where($key, $operator, $value);
         }
+
         return $this->with($relationships)->where($key, $operator, $value)->get($columns);
     }
 
     /**
-     * Add data, if it does not exist in the db
+     * Add data, if it does not exist in the db.
      *
      * @param $id
      * @param $data
@@ -262,7 +266,6 @@ abstract class EloquentRepository implements RepositoryInterface
         $existingData = $this->find($id, [], false, [$this->model->getKeyName()]);
 
         if (is_null($existingData)) {
-
             return $this->add($data);
         }
 
@@ -270,7 +273,7 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
-     * Add data to the db
+     * Add data to the db.
      *
      * @param $data
      *
@@ -283,6 +286,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * @param array $cols
+     *
      * @return $this
      */
     public function select(array $cols)
@@ -293,6 +297,7 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * @param $id
      * @param $data
+     *
      * @return bool|int
      */
     public function edit($id, $data)
@@ -302,6 +307,7 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * @param $id
+     *
      * @return EloquentRepository|Model|\Illuminate\Support\Collection|null|static
      */
     public function get($id)

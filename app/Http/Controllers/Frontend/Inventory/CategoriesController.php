@@ -10,7 +10,6 @@ use Response;
 
 class CategoriesController extends Controller
 {
-
     protected $category;
 
     /**
@@ -23,7 +22,7 @@ class CategoriesController extends Controller
 
     /**
      * Display a listing of the resource.
-     * GET /categories
+     * GET /categories.
      *
      * @return Response
      */
@@ -37,13 +36,12 @@ class CategoriesController extends Controller
 
     /**
      * Display the specified resource.
-     * GET /categories/{id}
+     * GET /categories/{id}.
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Category $category
      *
      * @return Response
-     *
      */
     public function show(Request $request, Category $category)
     {
@@ -54,5 +52,4 @@ class CategoriesController extends Controller
             ->with('category', array_get($data, 'cat'))
             ->with('products', array_get($data, 'pages'));
     }
-
 }

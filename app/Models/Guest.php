@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Eloquent;
 
@@ -19,7 +21,7 @@ class Guest extends Eloquent
      */
     public function getUserName()
     {
-        return beautify($this->first_name . " " . $this->last_name);
+        return beautify($this->first_name.' '.$this->last_name);
     }
 
     /**

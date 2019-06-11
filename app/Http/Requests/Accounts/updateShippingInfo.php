@@ -1,10 +1,11 @@
-<?php namespace App\Http\Request\Accounts;
+<?php
+
+namespace App\Http\Request\Accounts;
 
 use App\Http\Requests\Request;
 
 class updateShippingInfo extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,10 +24,9 @@ class updateShippingInfo extends Request
     public function rules()
     {
         return [
-            'county_id' => 'required',
-            'town' => 'required',
-            'home_address' => 'required'
+            'county_id'    => 'required',
+            'town'         => 'required',
+            'home_address' => 'required',
         ];
     }
-
 }

@@ -1,17 +1,18 @@
-<?php namespace app\Antony\DomainLogic\Presenters;
+<?php
+
+namespace app\Antony\DomainLogic\Presenters;
 
 use DateTime;
 use Laracasts\Presenter\Presenter;
 
 class UserPresenter extends Presenter
 {
-
     /**
      * @return string
      */
     public function fullName()
     {
-        return beautify($this->first_name . ' ' . $this->last_name);
+        return beautify($this->first_name.' '.$this->last_name);
     }
 
     /**
@@ -19,7 +20,6 @@ class UserPresenter extends Presenter
      */
     public function firstName()
     {
-
         return beautify($this->first_name);
     }
 
@@ -28,7 +28,6 @@ class UserPresenter extends Presenter
      */
     public function age()
     {
-
         $from = new DateTime($this->dob);
         $to = new DateTime('today');
         $years = $from->diff($to)->y;
@@ -58,6 +57,6 @@ class UserPresenter extends Presenter
      */
     public function lastLogin()
     {
-        return is_null($this->last_login) ? "unknown" : $this->last_login->diffForHumans();
+        return is_null($this->last_login) ? 'unknown' : $this->last_login->diffForHumans();
     }
 }

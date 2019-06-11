@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Product;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Product;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\Product;
@@ -7,14 +9,14 @@ use Carbon\Carbon;
 class ProductRepository extends EloquentRepository
 {
     /**
-     * The product sku
+     * The product sku.
      *
      * @var string
      */
     protected $skuString = 'PCW';
 
     /**
-     * Add a product to stock
+     * Add a product to stock.
      *
      * @param $data
      *
@@ -24,7 +26,6 @@ class ProductRepository extends EloquentRepository
     {
         // create product SKU
         $this->model->creating(function ($product) use ($data) {
-
             $product->sku = $this->generateProductSKU();
 
             $product->category_id = array_get($data, 'category_id');
@@ -36,13 +37,13 @@ class ProductRepository extends EloquentRepository
     }
 
     /**
-     * Generate a sample product SKU
+     * Generate a sample product SKU.
      *
      * @return string
      */
     public function generateProductSKU()
     {
-        return $this->skuString . int_random();
+        return $this->skuString.int_random();
     }
 
     /**
@@ -57,7 +58,7 @@ class ProductRepository extends EloquentRepository
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */
@@ -67,7 +68,7 @@ class ProductRepository extends EloquentRepository
     }
 
     /**
-     * Displays a listing of all products
+     * Displays a listing of all products.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
      */
@@ -77,7 +78,7 @@ class ProductRepository extends EloquentRepository
     }
 
     /**
-     * Displays a sum of individual products in the database
+     * Displays a sum of individual products in the database.
      *
      * @return mixed
      */
@@ -90,8 +91,8 @@ class ProductRepository extends EloquentRepository
      * @param $key
      * @param $operator
      * @param $value
-     *
      * @param array $columns
+     *
      * @return mixed
      */
     public function where($key, $operator, $value, $columns = ['*'])
@@ -100,18 +101,17 @@ class ProductRepository extends EloquentRepository
     }
 
     /**
-     * Gets the sum of all products in the db. for instance, if a single product has a qt of 10, we shall get 10 instead of 1
+     * Gets the sum of all products in the db. for instance, if a single product has a qt of 10, we shall get 10 instead of 1.
      *
      * @return mixed
      */
     public function getAllProductsCount()
     {
-
         return $this->all()->count();
     }
 
     /**
-     * Displays all data about a single product
+     * Displays all data about a single product.
      *
      * @param $id
      *
@@ -123,7 +123,7 @@ class ProductRepository extends EloquentRepository
     }
 
     /**
-     * Displays top rated products
+     * Displays top rated products.
      *
      * @return mixed
      */
@@ -136,9 +136,7 @@ class ProductRepository extends EloquentRepository
 
         // for now, that criteria will be ok, since we have a few products and users
         $data = $this->with(['reviews'])->whereHas('reviews', function ($q) {
-
             $q->where('stars', '>=', config('site.reviews.hottest', 3.5));
-
         }, '>=', config('site.reviews.count', 10))->get()->sortByDesc(function ($p) {
 
             // sort by the number of stars
@@ -151,7 +149,7 @@ class ProductRepository extends EloquentRepository
     }
 
     /**
-     * Display new products on the home page
+     * Display new products on the home page.
      *
      * @return mixed
      */

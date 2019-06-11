@@ -1,9 +1,9 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Invoice;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Invoice;
 
 interface InvoiceContract
 {
-
-
     const NO_DATA_FOR_INVOICE = 'invoice.empty.data';
 
     const INVOICE_SENT = 'invoice.sent';

@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Reviews;
+<?php
+
+namespace App\Http\Requests\Reviews;
 
 use App\Http\Requests\Request;
 
 class ReviewProductRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,9 +24,8 @@ class ReviewProductRequest extends Request
     public function rules()
     {
         return [
-            'stars' => 'required|numeric|between:1,5',
-            'comment' => 'sometimes|between:5,500'
+            'stars'   => 'required|numeric|between:1,5',
+            'comment' => 'sometimes|between:5,500',
         ];
     }
-
 }

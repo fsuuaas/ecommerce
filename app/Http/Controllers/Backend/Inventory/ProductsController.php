@@ -14,7 +14,7 @@ use yajra\Datatables\Datatables;
 class ProductsController extends Controller
 {
     /**
-     * The products module
+     * The products module.
      *
      * @var ProductRepository
      */
@@ -29,7 +29,7 @@ class ProductsController extends Controller
     }
 
     /**
-     * Display a listing of products
+     * Display a listing of products.
      *
      * @return Response
      */
@@ -47,7 +47,6 @@ class ProductsController extends Controller
      */
     public function getDataTable()
     {
-
         $products = $this->products->with(['category', 'subcategory', 'brand', 'reviews'])->select('*');
 
         return Datatables::of($products)->addColumn('edit', function ($product) {
@@ -58,7 +57,7 @@ class ProductsController extends Controller
     }
 
     /**
-     * Show the form for creating a new product
+     * Show the form for creating a new product.
      *
      * @return Response
      */
@@ -85,6 +84,7 @@ class ProductsController extends Controller
      * Display the specified product.
      *
      * @param Product $product
+     *
      * @return Response
      */
     public function show(Product $product)
@@ -96,6 +96,7 @@ class ProductsController extends Controller
      * Show the form for editing the specified product.
      *
      * @param Product $product
+     *
      * @return Response
      */
     public function edit(Product $product)
@@ -107,9 +108,9 @@ class ProductsController extends Controller
      * Update the specified product in storage.
      *
      * @param ProductRequest $request
-     * @param Product $product
-     * @return Response
+     * @param Product        $product
      *
+     * @return Response
      */
     public function update(ProductRequest $request, Product $product)
     {
@@ -122,10 +123,11 @@ class ProductsController extends Controller
      * Remove the specified product from storage.
      *
      * @param DeleteInventoryRequest|Request $request
+     * @param Product                        $product
      *
-     * @param Product $product
-     * @return Response
      * @throws \Exception
+     *
+     * @return Response
      */
     public function destroy(DeleteInventoryRequest $request, Product $product)
     {
@@ -133,5 +135,4 @@ class ProductsController extends Controller
 
         return $this->handleRedirect($request, route('backend.products.index'));
     }
-
 }

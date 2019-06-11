@@ -1,11 +1,13 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Base;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\ShoppingCart\Base;
 
 use App\Models\Product;
 
 trait ShoppingCartReconciler
 {
     /**
-     * Check if products is the shopping cart have a shipping cost
+     * Check if products is the shopping cart have a shipping cost.
      *
      * @return bool
      */
@@ -15,7 +17,7 @@ trait ShoppingCartReconciler
     }
 
     /**
-     * Returns the total shipping cost of all products in a user's shopping cart
+     * Returns the total shipping cost of all products in a user's shopping cart.
      *
      * @param bool $format
      *
@@ -23,7 +25,6 @@ trait ShoppingCartReconciler
      */
     public function getShippingSubTotal($format = true)
     {
-
         $scope = $this;
 
         $sum = $this->getProducts()->sum(function ($p) use ($scope) {
@@ -31,12 +32,11 @@ trait ShoppingCartReconciler
         });
 
         return !$format ? $sum : format_money($sum);
-
     }
 
     /**
      * Allow us to get the quantity of a single product in a user's shopping cart
-     * The query assumes presence of a pivot in the collection, so if the query fails, we just return 1
+     * The query assumes presence of a pivot in the collection, so if the query fails, we just return 1.
      *
      * @param Product $product
      *
@@ -53,7 +53,7 @@ trait ShoppingCartReconciler
     }
 
     /**
-     * Get the total value of all products in the user's shopping cart
+     * Get the total value of all products in the user's shopping cart.
      *
      * @param bool $format
      *
@@ -87,7 +87,7 @@ trait ShoppingCartReconciler
     }
 
     /**
-     * Get the total tax value of all products in the user's shopping cart
+     * Get the total tax value of all products in the user's shopping cart.
      *
      * @param bool $format
      *
@@ -95,7 +95,6 @@ trait ShoppingCartReconciler
      */
     public function getCartTaxSubTotal($format = true)
     {
-
         $scope = $this;
 
         $sum = $this->getProducts()->sum(function ($p) use ($scope) {
@@ -106,7 +105,7 @@ trait ShoppingCartReconciler
     }
 
     /**
-     * Calculates the grand total value of all products in a user's shopping cart
+     * Calculates the grand total value of all products in a user's shopping cart.
      *
      * @param bool $format
      *
@@ -114,7 +113,6 @@ trait ShoppingCartReconciler
      */
     public function getGrandTotal($format = true)
     {
-
         $scope = $this;
 
         $sum = $this->getProducts()->sum(function ($p) use ($scope) {

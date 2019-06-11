@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Product\Traits;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Product\Traits;
 
 use app\Antony\DomainLogic\Modules\ShoppingCart\Formatters\MoneyFormatter;
 use app\Antony\DomainLogic\Modules\ShoppingCart\Tax\KenyanTaxRate;
@@ -9,21 +11,21 @@ use Money\Money;
 trait ProductReconciler
 {
     /**
-     * Default product quantity, if not set
+     * Default product quantity, if not set.
      *
      * @var int
      */
     protected $qt = 1;
 
     /**
-     * The product instance
+     * The product instance.
      *
      * @var Product
      */
     private $product = null;
 
     /**
-     * Set the product quantity
+     * Set the product quantity.
      *
      * @param $value
      *
@@ -31,13 +33,13 @@ trait ProductReconciler
      */
     public function quantity($value)
     {
-        $this->qt = (int)$value;
+        $this->qt = (int) $value;
 
         return $this;
     }
 
     /**
-     * Return the total of the Product
+     * Return the total of the Product.
      *
      * @return Money
      */
@@ -46,11 +48,12 @@ trait ProductReconciler
         $tax = $this->tax();
         $subtotal = $this->subtotal();
         $total = $subtotal->add($tax);
+
         return $total;
     }
 
     /**
-     * Return the tax of the Product
+     * Return the tax of the Product.
      *
      * @return Money
      */
@@ -76,21 +79,21 @@ trait ProductReconciler
     }
 
     /**
-     * Gets the product instance
+     * Gets the product instance.
      *
      * @return $this|Product
-     *
      */
     public function getProduct()
     {
         if (is_null($this->product)) {
             return $this;
         }
+
         return $this->product;
     }
 
     /**
-     * Sets the product instance
+     * Sets the product instance.
      *
      * @param Product $product
      *
@@ -104,7 +107,7 @@ trait ProductReconciler
     }
 
     /**
-     * Create an initial zero money value
+     * Create an initial zero money value.
      *
      * @return Money
      */
@@ -116,7 +119,7 @@ trait ProductReconciler
     }
 
     /**
-     * Return the value of the Product
+     * Return the value of the Product.
      *
      * @return Money
      */
@@ -128,7 +131,7 @@ trait ProductReconciler
     }
 
     /**
-     * Return the discount of the Product
+     * Return the discount of the Product.
      *
      * @return Money
      */
@@ -141,11 +144,12 @@ trait ProductReconciler
             $discount = $product->discount->product($product);
             $discount = $discount->multiply($this->qt);
         }
+
         return $discount;
     }
 
     /**
-     * Return the subtotal of the Product
+     * Return the subtotal of the Product.
      *
      * @return Money
      */
@@ -161,11 +165,12 @@ trait ProductReconciler
         }
         $delivery = $this->delivery();
         $subtotal = $subtotal->add($delivery);
+
         return $subtotal;
     }
 
     /**
-     * Return the delivery charge of the Product
+     * Return the delivery charge of the Product.
      *
      * @return Money
      */
@@ -174,11 +179,11 @@ trait ProductReconciler
         $product = $this->getProduct();
 
         $delivery = $product->shipping->multiply($this->qt);
+
         return $delivery;
     }
 
     /**
-     *
      * @return Money
      */
     public function valuePlusTax()
@@ -187,7 +192,7 @@ trait ProductReconciler
     }
 
     /**
-     * Formats a money object to price + value. eg Money A becomes KSH 10000
+     * Formats a money object to price + value. eg Money A becomes KSH 10000.
      *
      * @param $money
      *
@@ -196,8 +201,7 @@ trait ProductReconciler
     public function formatMoneyValue($money)
     {
         if (!$money instanceof Money) {
-
-            $money = new Money((int)$money, new Currency($this->defaultCurrency));
+            $money = new Money((int) $money, new Currency($this->defaultCurrency));
         }
         $formatter = new MoneyFormatter();
 

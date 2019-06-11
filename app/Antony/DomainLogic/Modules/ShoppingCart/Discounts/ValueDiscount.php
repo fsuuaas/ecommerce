@@ -1,5 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Discounts;
+<?php
 
+namespace app\Antony\DomainLogic\Modules\ShoppingCart\Discounts;
 
 use app\Antony\DomainLogic\Contracts\ShoppingCart\Discount;
 use app\Antony\DomainLogic\Contracts\ShoppingCart\MoneyInterface;
@@ -14,7 +15,7 @@ class ValueDiscount implements Discount, MoneyInterface
     private $rate;
 
     /**
-     * Create a new Discount
+     * Create a new Discount.
      *
      * @param Money $rate
      *
@@ -31,7 +32,7 @@ class ValueDiscount implements Discount, MoneyInterface
     }
 
     /**
-     * Return the rate of the Discount
+     * Return the rate of the Discount.
      *
      * @return mixed
      */
@@ -41,7 +42,7 @@ class ValueDiscount implements Discount, MoneyInterface
     }
 
     /**
-     * Return the object as an instance of Money
+     * Return the object as an instance of Money.
      *
      * @return Money
      */

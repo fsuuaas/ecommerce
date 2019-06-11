@@ -1,5 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Discounts;
+<?php
 
+namespace app\Antony\DomainLogic\Modules\ShoppingCart\Discounts;
 
 use app\Antony\DomainLogic\Contracts\ShoppingCart\Discount;
 use app\Antony\DomainLogic\Contracts\ShoppingCart\Percentage;
@@ -14,7 +15,7 @@ class PercentageDiscount implements Discount, Percentage
     private $rate;
 
     /**
-     * Create a new Discount
+     * Create a new Discount.
      *
      * @param int $rate
      *
@@ -24,7 +25,6 @@ class PercentageDiscount implements Discount, Percentage
     {
         $this->rate = $rate;
     }
-
 
     /**
      * @param Product $product
@@ -37,7 +37,7 @@ class PercentageDiscount implements Discount, Percentage
     }
 
     /**
-     * Return the rate of the Discount
+     * Return the rate of the Discount.
      *
      * @return mixed
      */
@@ -47,7 +47,7 @@ class PercentageDiscount implements Discount, Percentage
     }
 
     /**
-     * Return the object as a Percent
+     * Return the object as a Percent.
      *
      * @return Percent
      */

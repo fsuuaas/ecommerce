@@ -1,15 +1,15 @@
-<?php namespace App\Http\Controllers\Shared;
+<?php
+
+namespace App\Http\Controllers\Shared;
 
 use app\Antony\DomainLogic\Modules\Articles\ArticlesRepository;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use app\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class HelpController extends Controller
 {
-
     /**
      * @var ArticlesRepository
      */
@@ -20,7 +20,6 @@ class HelpController extends Controller
      */
     public function __construct(ArticlesRepository $repository)
     {
-
         $this->articles = $repository;
     }
 
@@ -50,11 +49,11 @@ class HelpController extends Controller
      *
      * @param Request $request
      * @param Article $article
+     *
      * @return Response
      */
     public function show(Request $request, Article $article)
     {
         return $request->get('popup') == 1 ? view('shared.articles.help.popup', compact('article')) : view('shared.articles.help.view-article', compact('article'));
-
     }
 }

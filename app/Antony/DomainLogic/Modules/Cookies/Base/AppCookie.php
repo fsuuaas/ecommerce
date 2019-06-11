@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Cookies\Base;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Cookies\Base;
 
 use app\Antony\DomainLogic\Contracts\Cookies\CookieRepositoryInterface;
 use Cookie;
@@ -6,7 +8,6 @@ use Illuminate\Cookie\CookieJar;
 
 class AppCookie implements CookieRepositoryInterface
 {
-
     public $cookie;
 
     public $name = '';
@@ -38,7 +39,6 @@ class AppCookie implements CookieRepositoryInterface
     {
         return $this->cookie->make($this->name, $data, $this->timespan, $this->path, $this->domain, $this->secure, $this->http);
     }
-
 
     /**
      * {@inheritdoc}
@@ -74,30 +74,21 @@ class AppCookie implements CookieRepositoryInterface
     public function get($attribute = null)
     {
         if (empty($this->data)) {
-
-            return null;
+            return;
         }
 
         $array = $this->fetch()->data;
 
         if (is_null($attribute)) {
-
             return $this->data;
         } else {
-
             if (is_array($this->data)) {
-
                 return array_get($array, key($array))->$attribute;
-
             } elseif (is_object($this->data)) {
-
                 return $this->data->$attribute;
-
             } else {
-
                 return $this->data;
             }
         }
-
     }
 }

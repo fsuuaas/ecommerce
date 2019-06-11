@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Checkout;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Checkout;
 
 use app\Antony\DomainLogic\Contracts\Checkout\CheckoutContract;
 use app\Antony\DomainLogic\Modules\Cookies\CheckOutCookie;
@@ -11,30 +13,30 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
     use CheckoutRedirector;
 
     /**
-     * Route to previous step
+     * Route to previous step.
      *
      * @var null
      */
     protected $previousRoute = null;
 
     /**
-     * Route to next step
+     * Route to next step.
      *
      * @var string
      */
     protected $nextStepRoute = null;
 
     /**
-     * Default route
+     * Default route.
      *
      * @var string
      */
     protected $defaultRoute = 'checkout.auth';
 
     /**
-     * Specifies if the user should be redirected back once they complete an action
+     * Specifies if the user should be redirected back once they complete an action.
      *
-     * @var boolean
+     * @var bool
      */
     protected $redirectBack = false;
 
@@ -70,21 +72,20 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
 
     /**
      * @param GuestRepository $guestRepository
-     * @param CheckOutCookie $checkOutCookie
-     * @param UserRepository $userRepository
+     * @param CheckOutCookie  $checkOutCookie
+     * @param UserRepository  $userRepository
      *
      * @internal param Authenticatable $authenticatable
      */
     public function __construct(GuestRepository $guestRepository, CheckOutCookie $checkOutCookie, UserRepository $userRepository)
     {
-
         $this->guestRepository = $guestRepository;
         $this->checkOutCookie = $checkOutCookie;
         $this->userRepository = $userRepository;
     }
 
     /**
-     * Creates and queues the checkout cookie
+     * Creates and queues the checkout cookie.
      *
      * @param $step_id
      * @param $data
@@ -94,9 +95,9 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
     public function createCheckoutCookie($step_id, $data)
     {
         $cookie_data = [
-            'step' => $step_id,
+            'step'  => $step_id,
             'state' => $this->getStepStatus(),
-            'data' => $data
+            'data'  => $data,
         ];
         // make the cookie that will determine the user's state in the checkout progress
         $this->checkOutCookie->cookie->queue($this->checkOutCookie->name, $cookie_data, $this->checkOutCookie->timespan);
@@ -110,9 +111,8 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
         return $this->stepStatus;
     }
 
-
     /**
-     * Gets the data from a cookie
+     * Gets the data from a cookie.
      *
      * @return mixed
      */
@@ -137,7 +137,7 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
     }
 
     /**
-     * Gets details about the guest usr
+     * Gets details about the guest usr.
      *
      * @return array|null
      */
@@ -147,7 +147,7 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
     }
 
     /**
-     * Check if the user is a Guest
+     * Check if the user is a Guest.
      *
      * @return bool
      */
@@ -185,5 +185,4 @@ abstract class AbstractCheckoutProcessor implements CheckoutContract
     {
         return json_encode($this->getCookieData());
     }
-
 }

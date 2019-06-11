@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Brands;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Brands;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\Brand;
@@ -7,9 +9,8 @@ use Illuminate\Support\Collection;
 
 class BrandsRepository extends EloquentRepository
 {
-
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */
@@ -19,7 +20,7 @@ class BrandsRepository extends EloquentRepository
     }
 
     /**
-     * Displays a listing of all brands
+     * Displays a listing of all brands.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
      */
@@ -29,10 +30,9 @@ class BrandsRepository extends EloquentRepository
     }
 
     /**
-     * Displays related products within a brand
+     * Displays related products within a brand.
      *
      * @param $brand_id
-     *
      * @param Request $request
      *
      * @return mixed
@@ -51,13 +51,10 @@ class BrandsRepository extends EloquentRepository
 
         // customize our collection to only include products. Other variables can be compacted later
         foreach ($data as $manufacturer) {
-
             $brand = $manufacturer;
             foreach ($manufacturer->products as $product) {
-
                 $collection->push($product);
             }
-
         }
 
         $pages = $this->paginateCollection($collection, 10, $request);
@@ -66,7 +63,7 @@ class BrandsRepository extends EloquentRepository
     }
 
     /**
-     * Displays a listing of brands on the homepage
+     * Displays a listing of brands on the homepage.
      *
      * @return mixed
      */

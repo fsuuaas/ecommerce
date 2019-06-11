@@ -1,18 +1,18 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Tax;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\ShoppingCart\Tax;
 
 use app\Antony\DomainLogic\Contracts\ShoppingCart\TaxRate;
 
 class KenyanTaxRate implements TaxRate
 {
-
     /**
      * @var float
      */
     private $rate;
 
     /**
-     * Create a new Tax Rate
-     *
+     * Create a new Tax Rate.
      */
     public function __construct()
     {
@@ -20,7 +20,7 @@ class KenyanTaxRate implements TaxRate
     }
 
     /**
-     * Return the Tax Rate as a float
+     * Return the Tax Rate as a float.
      *
      * @return float
      */
@@ -30,7 +30,7 @@ class KenyanTaxRate implements TaxRate
     }
 
     /**
-     * Return the Tax Rate as a percentage
+     * Return the Tax Rate as a percentage.
      *
      * @return int
      */

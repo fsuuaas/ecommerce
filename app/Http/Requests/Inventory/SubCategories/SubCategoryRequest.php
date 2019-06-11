@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Inventory\SubCategories;
+<?php
+
+namespace App\Http\Requests\Inventory\SubCategories;
 
 use App\Http\Requests\Request;
 
 class SubCategoryRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,18 +24,16 @@ class SubCategoryRequest extends Request
     public function rules()
     {
         $rules = [
-            'name' => 'required|unique:subcategories',
-            'alias' => 'alpha',
-            'banner' => 'image|between:5,2000',
-            'category_id' => 'required'
+            'name'        => 'required|unique:subcategories',
+            'alias'       => 'alpha',
+            'banner'      => 'image|between:5,2000',
+            'category_id' => 'required',
         ];
 
         if ($this->isMethod('patch')) {
-
-            $rules['name'] = 'required|unique:subcategories,id,' . $this->get('id');
+            $rules['name'] = 'required|unique:subcategories,id,'.$this->get('id');
         }
 
         return $rules;
     }
-
 }

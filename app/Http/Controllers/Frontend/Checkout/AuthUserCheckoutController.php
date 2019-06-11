@@ -18,12 +18,11 @@ class AuthUserCheckoutController extends Controller
      */
     public function __construct(ShippingStep $shippingStep)
     {
-
         $this->shippingStep = $shippingStep;
     }
 
     /**
-     * Displays the shipping info edit form
+     * Displays the shipping info edit form.
      *
      * @return \Illuminate\View\View
      */
@@ -35,7 +34,7 @@ class AuthUserCheckoutController extends Controller
     }
 
     /**
-     * This will process user shipping details, if they decide to edit them
+     * This will process user shipping details, if they decide to edit them.
      *
      * @param updateShippingInfo $request
      *
@@ -47,7 +46,7 @@ class AuthUserCheckoutController extends Controller
     }
 
     /**
-     * Displays the payment form
+     * Displays the payment form.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -62,13 +61,12 @@ class AuthUserCheckoutController extends Controller
     }
 
     /**
-     * Displays the order review form
+     * Displays the order review form.
      *
      * @return \Illuminate\View\View
      */
     public function reviewOrder()
     {
-
         return view('frontend.checkout.reviewOrder');
     }
 }

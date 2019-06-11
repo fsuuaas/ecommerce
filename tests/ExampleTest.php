@@ -2,7 +2,6 @@
 
 class ExampleTest extends TestCase
 {
-
     /**
      * A basic functional test example.
      *
@@ -12,7 +11,6 @@ class ExampleTest extends TestCase
     {
         $response = $this->route('POST', 'backend.login');
 
-        $this->assertEquals( 302, $response->getStatusCode() );
+        $this->assertEquals(302, $response->getStatusCode());
     }
-
 }

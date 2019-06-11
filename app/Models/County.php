@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use app\Antony\DomainLogic\Presenters\NamePresenter;
 use Carbon\Carbon;
@@ -12,7 +14,6 @@ class County extends Eloquent
     protected $presenter = NamePresenter::class;
 
     protected $fillable = ['name', 'alias'];
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

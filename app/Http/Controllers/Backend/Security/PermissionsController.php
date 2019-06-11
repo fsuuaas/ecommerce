@@ -11,7 +11,7 @@ use Response;
 class PermissionsController extends Controller
 {
     /**
-     * The permissions repository
+     * The permissions repository.
      *
      * @var \app\Antony\DomainLogic\Modules\Security\PermissionsRepo
      */
@@ -19,7 +19,6 @@ class PermissionsController extends Controller
 
     public function __construct(PermissionsRepo $permissionsRepo)
     {
-
         $this->permission = $permissionsRepo;
     }
 
@@ -66,7 +65,7 @@ class PermissionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -78,7 +77,7 @@ class PermissionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -90,7 +89,7 @@ class PermissionsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -103,14 +102,13 @@ class PermissionsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param ModifyAcl $request
-     * @param  int $id
+     * @param int       $id
      *
      * @return Response
      */
     public function destroy(ModifyAcl $request, $id)
     {
         if ($this->permission->delete([$id])) {
-
             flash('The permission has been removed');
 
             return redirect()->action('Backend\PermissionsController@index');
@@ -120,5 +118,4 @@ class PermissionsController extends Controller
 
         return redirect()->back();
     }
-
 }
