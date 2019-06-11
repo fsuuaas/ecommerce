@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Contact;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Contact;
 
 use app\Antony\DomainLogic\Contracts\Contact\ContactMessageContract;
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
@@ -6,9 +8,8 @@ use App\Models\AnonymousMessages;
 
 class ContactMessageRepository extends EloquentRepository implements ContactMessageContract
 {
-
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */
@@ -18,7 +19,7 @@ class ContactMessageRepository extends EloquentRepository implements ContactMess
     }
 
     /**
-     * Send the contact message
+     * Send the contact message.
      *
      * @param $data
      *

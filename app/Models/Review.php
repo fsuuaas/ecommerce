@@ -1,11 +1,12 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Carbon\Carbon;
 use Eloquent;
 
 class Review extends Eloquent
 {
-
     protected $fillable = [
         'stars',
         'comment',

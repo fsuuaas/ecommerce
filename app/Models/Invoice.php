@@ -1,10 +1,11 @@
-<?php namespace app\Models;
+<?php
+
+namespace app\Models;
 
 use Eloquent;
 
 class Invoice extends Eloquent
 {
-
     public $incrementing = false;
 
     public $fillable = ['data'];
@@ -32,7 +33,6 @@ class Invoice extends Eloquent
      */
     public function order()
     {
-
         return $this->belongsTo(\App\Models\Order::class);
     }
 }

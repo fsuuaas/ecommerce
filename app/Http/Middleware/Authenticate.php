@@ -1,11 +1,12 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
 class Authenticate
 {
-
     /**
      * The Guard implementation.
      *
@@ -16,7 +17,7 @@ class Authenticate
     /**
      * Create a new filter instance.
      *
-     * @param  Guard $auth
+     * @param Guard $auth
      *
      * @return void
      */
@@ -27,10 +28,10 @@ class Authenticate
 
     /**
      * This middleware acts as a sort of 'gate' preventing non-authenticated users from going
-     * to their destination unless they are logged in
+     * to their destination unless they are logged in.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -38,10 +39,8 @@ class Authenticate
     {
         if ($this->auth->guest()) {
             if ($request->ajax()) {
-
                 return response('Unauthorized.', 401);
             } else {
-
                 flash('You need to login/register first');
 
                 return redirect(route('login'));
@@ -50,5 +49,4 @@ class Authenticate
 
         return $next($request);
     }
-
 }

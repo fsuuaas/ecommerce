@@ -1,12 +1,13 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Traits;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\ShoppingCart\Traits;
 
 use App\Models\Cart;
 
 trait SessionCache
 {
-
     /**
-     * Stores the basket in the user's shopping cart
+     * Stores the basket in the user's shopping cart.
      *
      * @param $basket
      *
@@ -14,12 +15,11 @@ trait SessionCache
      */
     public function cacheBasket($basket)
     {
-
         $this->session->put('basket', $basket);
     }
 
     /**
-     * Returns the cached shopping cart
+     * Returns the cached shopping cart.
      *
      * @return Cart|null
      */
@@ -29,7 +29,7 @@ trait SessionCache
     }
 
     /**
-     * Returns the products stored in session
+     * Returns the products stored in session.
      *
      * @return Collection|null
      */
@@ -39,22 +39,25 @@ trait SessionCache
     }
 
     /**
-     * Removes both the basket and the products in it, from the current session
+     * Removes both the basket and the products in it, from the current session.
      *
      * @return void
      */
     public function emptyCache()
     {
+        if ($this->productsAreCached()) {
+            $this->session->pull('basket_products');
+        }
 
-        if ($this->productsAreCached()) $this->session->pull('basket_products');
-
-        if ($this->basketIsCached()) $this->session->pull('basket');
+        if ($this->basketIsCached()) {
+            $this->session->pull('basket');
+        }
     }
 
     /**
-     * Checks is any products have been cached in the user's session
+     * Checks is any products have been cached in the user's session.
      *
-     * @return boolean
+     * @return bool
      */
     public function productsAreCached()
     {
@@ -62,9 +65,9 @@ trait SessionCache
     }
 
     /**
-     * Check if a basket or shopping cart is cached
+     * Check if a basket or shopping cart is cached.
      *
-     * @return boolean
+     * @return bool
      */
     public function basketIsCached()
     {
@@ -72,7 +75,7 @@ trait SessionCache
     }
 
     /**
-     * Removes products cached in the session
+     * Removes products cached in the session.
      *
      * @return void
      */
@@ -82,7 +85,7 @@ trait SessionCache
     }
 
     /**
-     * Stores products in the basket in the usr's session
+     * Stores products in the basket in the usr's session.
      *
      * @param $products
      *
@@ -94,13 +97,12 @@ trait SessionCache
     }
 
     /**
-     * Removes the cached basket from the session
+     * Removes the cached basket from the session.
      *
      * @return void
      */
     public function removeCachedBasket()
     {
-
         $this->session->pull('basket');
     }
 }

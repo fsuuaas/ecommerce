@@ -1,7 +1,8 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use app\Antony\DomainLogic\Modules\ShoppingCart\Traits\ReconcilerTrait;
-
 
 class Cart extends \Eloquent
 {

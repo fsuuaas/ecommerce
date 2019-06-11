@@ -1,4 +1,6 @@
-<?php namespace App\Providers;
+<?php
+
+namespace App\Providers;
 
 use App\Antony\DomainLogic\Modules\Images\ImageProcessor;
 use App\Events\PasswordResetWasRequested;
@@ -10,17 +12,13 @@ use App\ModelObservers\ProductBrandObserver;
 use App\ModelObservers\ProductObserver;
 use App\ModelObservers\UserObserver;
 use App\Models\Brand;
-use App\Models\Cart;
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
-
     /**
      * The event handler mappings for the application.
      *
@@ -32,15 +30,15 @@ class EventServiceProvider extends ServiceProvider
         ],
         // user registration event
         UserWasRegistered::class => [
-            SendRegistrationEmail::class
+            SendRegistrationEmail::class,
         ],
         // password reset event
         PasswordResetWasRequested::class => [
-            SendPasswordResetEmail::class
+            SendPasswordResetEmail::class,
         ],
         // user login
         'auth.login' => [
-            LogUserEvent::class
+            LogUserEvent::class,
         ],
 
     ];
@@ -48,7 +46,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher $events
+     * @param \Illuminate\Contracts\Events\Dispatcher $events
      *
      * @return void
      */
@@ -63,5 +61,4 @@ class EventServiceProvider extends ServiceProvider
 
         User::observe(new UserObserver(new ImageProcessor()));
     }
-
 }

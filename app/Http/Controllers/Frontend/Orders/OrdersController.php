@@ -52,22 +52,20 @@ class OrdersController extends Controller
     {
         // check if a user requested to create their account
         if ($orderRequest->has('create_account')) {
-
             return redirect()->route('checkout.createAccount', ['proceedTo' => $orderRequest->url()]);
         } else {
-
             $this->data = $this->orders->placeOrder($orderRequest->all());
 
-            $this->setSuccessMessage("Your order was successful. Thank you for shopping with us. Please review your invoice below");
+            $this->setSuccessMessage('Your order was successful. Thank you for shopping with us. Please review your invoice below');
 
             return $this->handleRedirect($orderRequest, route(!is_null($orderRequest->user()) ? 'u.checkout.viewInvoice' : 'checkout.viewInvoice'));
         }
-
     }
 
     /**
      * @param Request $request
      * @param $order
+     *
      * @return \Illuminate\View\View
      */
     public function show(Request $request, $order)
@@ -75,8 +73,8 @@ class OrdersController extends Controller
         $data = $this->orders->displaySpecificOrder($order->id);
 
         if ($data->count() === 0) {
+            $this->setErrorMessage('No orders were found');
 
-            $this->setErrorMessage("No orders were found");
             return $this->handleErrorWithFlashMessage(null, route('myorders'));
         }
 
@@ -87,7 +85,6 @@ class OrdersController extends Controller
         $user = auth()->user();
 
         foreach ($data as $orders) {
-
             $order = $orders;
 
             $cart_data = $orders->data;
@@ -101,7 +98,6 @@ class OrdersController extends Controller
      */
     public function displayInvoice()
     {
-
         $data = $this->orders->invoice_data();
 
         $order = array_get($data, '0');
@@ -120,7 +116,7 @@ class OrdersController extends Controller
     }
 
     /**
-     * The user will invoke this method, once they click the 'continue shopping' button after they make their order
+     * The user will invoke this method, once they click the 'continue shopping' button after they make their order.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -128,5 +124,4 @@ class OrdersController extends Controller
     {
         return $this->orders->complete();
     }
-
 }

@@ -11,7 +11,7 @@ use Response;
 class BrandsController extends Controller
 {
     /**
-     * The brands entity
+     * The brands entity.
      *
      * @var BrandsRepository
      */
@@ -26,7 +26,7 @@ class BrandsController extends Controller
     }
 
     /**
-     * Display a listing of all brands
+     * Display a listing of all brands.
      *
      * @return Response
      */
@@ -38,25 +38,22 @@ class BrandsController extends Controller
         return redirect()->back();
     }
 
-
     /**
-     * Display products within the brand
+     * Display products within the brand.
      *
      * @param Request $request
-     * @param Brand $brand
+     * @param Brand   $brand
      *
      * @return Response
-     * @internal param int $id
      *
+     * @internal param int $id
      */
     public function show(Request $request, Brand $brand)
     {
-
         $data = $this->brand->displayProductsWithBrands($brand, $request);
 
         return view('frontend.brands.products')
             ->with('brand', array_get($data, 'brand'))
             ->with('products', array_get($data, 'pages'));
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Checkout\Guest;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Checkout\Guest;
 
 use app\Antony\DomainLogic\Modules\Checkout\AbstractCheckoutProcessor;
 use app\Antony\DomainLogic\Modules\Checkout\CheckoutRedirector;
@@ -9,21 +11,21 @@ class GuestBillingAddress extends AbstractCheckoutProcessor
     use CheckoutRedirector;
 
     /**
-     * Step identifier
+     * Step identifier.
      *
      * @var int
      */
     const STEP_ID = 1;
 
     /**
-     * Route to previous step
+     * Route to previous step.
      *
      * @var null
      */
     protected $previousRoute = null;
 
     /**
-     * Route to next step
+     * Route to next step.
      *
      * @var string
      */
@@ -38,12 +40,12 @@ class GuestBillingAddress extends AbstractCheckoutProcessor
 
         if (!is_null($state)) {
             if ($this->getCookieData() instanceof Guest) {
-
                 return view('frontend.checkout.guest')->with('guest', $this->cookieData);
             }
-            return view('frontend.checkout.guest');
 
+            return view('frontend.checkout.guest');
         }
+
         return view('frontend.checkout.guest');
     }
 
@@ -60,7 +62,6 @@ class GuestBillingAddress extends AbstractCheckoutProcessor
             $this->guest = $this->guestRepository->addGuest($data, null);
 
             if ($this->guest !== null) {
-
                 $this->setStepStatus(static::STEP_COMPLETE);
 
                 $this->createCheckoutCookie(static::STEP_ID, $this->guest);

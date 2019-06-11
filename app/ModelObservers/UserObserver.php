@@ -1,4 +1,6 @@
-<?php namespace App\ModelObservers;
+<?php
+
+namespace App\ModelObservers;
 
 use App\Antony\DomainLogic\Contracts\Imaging\ImagingInterface;
 use App\Models\User;
@@ -6,7 +8,7 @@ use App\Models\User;
 class UserObserver
 {
     /**
-     * The image processor implementation
+     * The image processor implementation.
      *
      * @var ImagingInterface
      */
@@ -17,11 +19,9 @@ class UserObserver
      */
     public function __construct(ImagingInterface $imageProcessor)
     {
-
         $this->image = $imageProcessor;
 
         $this->image->storageLocation = config('site.users.images.storage');
-
     }
 
     /**
@@ -39,9 +39,7 @@ class UserObserver
 
             // check if the avatar is a url path. we would skip it
             if (is_string($model->avatar)) {
-
                 return true;
-
             }
             $path = $this->image->init($model, 'avatar')->getImage();
 
@@ -53,8 +51,8 @@ class UserObserver
 
             return true;
         }
-        return true;
 
+        return true;
     }
 
     /**
@@ -70,6 +68,7 @@ class UserObserver
         if (is_string($current_image)) {
             return true;
         }
+
         return file_exists_on_server($current_image) ? delete_file($current_image) : true;
     }
 

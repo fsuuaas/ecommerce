@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Authentication;
+<?php
+
+namespace App\Http\Requests\Authentication;
 
 use App\Http\Requests\Request;
 
 class ResetPassword extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,8 +24,7 @@ class ResetPassword extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email'
+            'email' => 'required|email',
         ];
     }
-
 }

@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Products;
+<?php
+
+namespace App\Http\Requests\Products;
 
 use App\Http\Requests\Request;
 
 class EmailProduct extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,8 +24,8 @@ class EmailProduct extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|array',
-            'message' => 'required|between:5,500',
+            'email'                => 'required|email|array',
+            'message'              => 'required|between:5,500',
             'g-recaptcha-response' => 'sometimes|required|recaptcha',
         ];
     }
@@ -33,9 +34,8 @@ class EmailProduct extends Request
     {
         return [
             'g-recaptcha-response.required' => 'Please solve the recaptcha',
-            'message.required' => 'Please enter a message',
-            'email.required' => 'Your email address is required',
+            'message.required'              => 'Please enter a message',
+            'email.required'                => 'Your email address is required',
         ];
     }
-
 }

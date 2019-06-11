@@ -1,4 +1,6 @@
-<?php namespace App\Http;
+<?php
+
+namespace App\Http;
 
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -9,7 +11,6 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {
-
     /**
      * The application's global HTTP middleware stack.
      *
@@ -32,21 +33,21 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
 
         // site (frontend) user authentication
-        'auth' => Middleware\Authenticate::class,
+        'auth'       => Middleware\Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
-        'guest' => Middleware\RedirectIfAuthenticated::class,
+        'guest'      => Middleware\RedirectIfAuthenticated::class,
 
         // api
-        'user.found' => Middleware\CreateAccountUsingAPIdata::class,
+        'user.found'       => Middleware\CreateAccountUsingAPIdata::class,
         'api.authenticate' => Middleware\AuthenticateWithAPI::class,
 
         // for all requests to the backend (Administrative pages)
-        'backend-access' => Middleware\BackendAccess::class,
+        'backend-access'        => Middleware\BackendAccess::class,
         'backend-authorization' => Middleware\BackendAuthorization::class,
-        'auth.backend' => Middleware\BackendAuthentication::class,
+        'auth.backend'          => Middleware\BackendAuthentication::class,
 
         // plain http transmission, or https
-        'http' => Middleware\RemoveSSL::class,
+        'http'  => Middleware\RemoveSSL::class,
         'https' => Middleware\RequireSSL::class,
 
         // shopping cart
@@ -54,7 +55,7 @@ class Kernel extends HttpKernel
 
         // checkout
         'checkout.guest' => Middleware\CheckOutAsGuest::class,
-        'checkout.user' => Middleware\CheckOutAsAuthUser::class,
+        'checkout.user'  => Middleware\CheckOutAsAuthUser::class,
 
         // prevent the user from reviewing a product twice
         'reviews.check' => Middleware\preventDoubleReviews::class,
@@ -68,5 +69,4 @@ class Kernel extends HttpKernel
         // age filter
         'age.filter' => Middleware\AgeFilter::class,
     ];
-
 }

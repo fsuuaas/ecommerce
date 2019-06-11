@@ -12,7 +12,6 @@ use yajra\Datatables\Datatables;
 
 class OrdersController extends Controller
 {
-
     /**
      * @var OrdersRepository
      */
@@ -30,14 +29,15 @@ class OrdersController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
     {
         if ($request->get('guest') == 1) {
-
             return view('backend.orders.guests');
         }
+
         return view('backend.orders.users');
     }
 
@@ -49,18 +49,18 @@ class OrdersController extends Controller
         $orders = $this->ordersRepository->with(['users'])->has('users')->select('*');
 
         $data = Datatables::of($orders)->addColumn('details', function ($order) {
-
             return link_to(route('backend.orders.show', ['order' => $order->id]), 'details', ['data-target-model' => $order->id, 'class' => 'btn btn-xs btn-primary']);
         })->addColumn('quantity', function ($order) {
             return array_get($order->data['cart'], 'total_products');
         })->addColumn('price', function ($order) {
             return format_money(array_get($order->data['cart'], 'grand_total'));
         })->addColumn('delivered', function ($order) {
-            return $order->delivered ? "Yes" : "Not Yet";
+            return $order->delivered ? 'Yes' : 'Not Yet';
         })->addColumn('user', function ($order) {
             $f = $order->users->implode('first_name');
             $l = $order->users->implode('last_name');
-            return beautify($f . ' ' . $l);
+
+            return beautify($f.' '.$l);
         })->addColumn('email', function ($order) {
             return $order->users->fetch('email');
         });
@@ -82,11 +82,12 @@ class OrdersController extends Controller
         })->addColumn('price', function ($order) {
             return format_money(array_get($order->data['cart'], 'grand_total'));
         })->addColumn('delivered', function ($order) {
-            return $order->delivered ? "Yes" : "Not Yet";
+            return $order->delivered ? 'Yes' : 'Not Yet';
         })->addColumn('user', function ($order) {
             $f = $order->guests->implode('first_name');
             $l = $order->guests->implode('last_name');
-            return beautify($f . ' ' . $l);
+
+            return beautify($f.' '.$l);
         })->addColumn('email', function ($order) {
             return $order->guests->fetch('email');
         });
@@ -97,8 +98,9 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Order $order
+     * @param Order   $order
      * @param Request $request
+     *
      * @return Response
      */
     public function show(Order $order, Request $request)
@@ -108,11 +110,11 @@ class OrdersController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return \Illuminate\View\View
      */
     public function getReport(Request $request)
     {
-
         $totalSales = format_money($this->ordersRepository->viewTotalSales());
 
         $salesToday = format_money($this->ordersRepository->viewTotalSalesByDate(Carbon::today(), null));

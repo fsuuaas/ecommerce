@@ -190,10 +190,9 @@ Breadcrumbs::register('product.view', function ($breadcrumbs, $product) {
         foreach ($brand as $br) {
             $breadcrumbs->push($br->name, route('brands.shop', ['brand' => $br->id]));
         }
-
     }
 
-    $breadcrumbs->push("product # " . $product->sku, route('product.view', ['product' => $product->id]));
+    $breadcrumbs->push('product # '.$product->sku, route('product.view', ['product' => $product->id]));
 });
 
-require __DIR__ . '/backend_breadcrumbs.php';
+require __DIR__.'/backend_breadcrumbs.php';

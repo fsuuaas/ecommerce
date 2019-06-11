@@ -1,30 +1,29 @@
-<?php namespace app\Antony\DomainLogic\Modules\Cache;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Cache;
 
 use app\Antony\DomainLogic\Contracts\Caching\CacheInterface;
 use Illuminate\Cache\CacheManager;
 
 class LaravelCache implements CacheInterface
 {
-
     /**
-     * Cache implementation
+     * Cache implementation.
      *
      * @var CacheManager
      */
     protected $cache;
 
     /**
-     * Defines how long the data should be cached
+     * Defines how long the data should be cached.
      *
-     * @var integer
+     * @var int
      */
     protected $minutes;
 
-
     /**
      * @param CacheManager $cache
-     * @param int $minutes
-     *
+     * @param int          $minutes
      */
     public function __construct(CacheManager $cache, $minutes = 60)
     {
@@ -34,7 +33,7 @@ class LaravelCache implements CacheInterface
     }
 
     /**
-     * Retrieve an item from the cache
+     * Retrieve an item from the cache.
      *
      * @param string $key
      *
@@ -46,11 +45,11 @@ class LaravelCache implements CacheInterface
     }
 
     /**
-     * Put a key value pair in the cache
+     * Put a key value pair in the cache.
      *
      * @param string $key
-     * @param mixed $value
-     * @param integer $minutes
+     * @param mixed  $value
+     * @param int    $minutes
      *
      * @return mixed
      */
@@ -64,7 +63,7 @@ class LaravelCache implements CacheInterface
     }
 
     /**
-     * Check if the cache has a key
+     * Check if the cache has a key.
      *
      * @param string $key
      *
@@ -90,5 +89,4 @@ class LaravelCache implements CacheInterface
     {
         $this->minutes = $minutes;
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Search;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Search;
 
 use app\Antony\DomainLogic\Contracts\Database\RepositoryInterface;
 use app\Antony\DomainLogic\Contracts\Search\SearchRepositoryInterface;
@@ -7,88 +9,87 @@ use Illuminate\Http\Request;
 
 abstract class Search implements SearchRepositoryInterface
 {
-
     use EloquentExtensions;
 
     /**
-     * The underlying repository
+     * The underlying repository.
      *
      * @var RepositoryInterface
      */
     protected $repository;
 
     /**
-     * Search keywords
+     * Search keywords.
      *
      * @var string
      */
-    protected $keywords = "";
+    protected $keywords = '';
 
     /**
-     * pagination option
+     * pagination option.
      *
-     * @var boolean
+     * @var bool
      */
     protected $paginate = true;
 
     /**
-     * Length of the paginated data set
+     * Length of the paginated data set.
      *
      * @var int
      */
     protected $paginationLength = 10;
 
     /**
-     * The variable that will be output to the view
+     * The variable that will be output to the view.
      *
      * @var string
      */
     protected $outputResultsVariableName = 'results';
 
     /**
-     * Search results
+     * Search results.
      *
      * @var mixed
      */
     protected $results = null;
 
     /**
-     * Search results view
+     * Search results view.
      *
      * @var string
      */
     protected $resultsView;
 
     /**
-     * Defines if we should use AJAX
+     * Defines if we should use AJAX.
      *
-     * @var boolean
+     * @var bool
      */
     protected $useAJAX;
 
     /**
-     * The request object that contains the GET search param
+     * The request object that contains the GET search param.
      *
      * @var string
      */
     protected $requestObject = 'q';
 
     /**
-     * The request object
+     * The request object.
      *
      * @var Request
      */
     protected $searchRequest = null;
 
     /**
-     * Empty results message
+     * Empty results message.
      *
      * @var string
      */
     protected $emptyResultMessage = 'sorry. we could not find what you searched for';
 
     /**
-     * Empty search results view
+     * Empty search results view.
      *
      * @var string
      */
@@ -111,7 +112,7 @@ abstract class Search implements SearchRepositoryInterface
     }
 
     /**
-     * @param boolean $requestObject
+     * @param bool $requestObject
      */
     public function setRequestObject($requestObject)
     {

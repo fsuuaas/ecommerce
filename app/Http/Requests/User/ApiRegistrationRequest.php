@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\User;
+<?php
+
+namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
 
 class ApiRegistrationRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,8 +25,7 @@ class ApiRegistrationRequest extends Request
     {
         return [
             'password' => 'required|confirmed|min:6',
-            'accept' => 'required',
+            'accept'   => 'required',
         ];
     }
-
 }

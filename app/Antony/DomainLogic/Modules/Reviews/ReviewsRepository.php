@@ -1,11 +1,12 @@
-<?php namespace app\Antony\DomainLogic\Modules\Reviews;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Reviews;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\Review;
 
 class ReviewsRepository extends EloquentRepository
 {
-
     /**
      * @param $data
      *
@@ -20,7 +21,6 @@ class ReviewsRepository extends EloquentRepository
 
         // associate the review to a product and the currently logged in user
         $this->model->creating(function ($r) use ($productID, $authUser) {
-
             $r->product_id = $productID;
 
             $r->user_id = $authUser->getAuthIdentifier();
@@ -30,7 +30,7 @@ class ReviewsRepository extends EloquentRepository
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */

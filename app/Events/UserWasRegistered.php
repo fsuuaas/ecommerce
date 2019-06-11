@@ -1,11 +1,12 @@
-<?php namespace App\Events;
+<?php
+
+namespace App\Events;
 
 use App\Models\User;
 use Illuminate\Queue\SerializesModels;
 
 class UserWasRegistered extends Event
 {
-
     use SerializesModels;
 
     public $user;
@@ -19,5 +20,4 @@ class UserWasRegistered extends Event
     {
         $this->user = $user;
     }
-
 }

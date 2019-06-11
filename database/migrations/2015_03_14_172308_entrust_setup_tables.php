@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -7,11 +8,11 @@ class EntrustSetupTables extends Migration
     /**
      * Run the migrations.
      *
-     * @return  void
+     * @return void
      */
     public function up()
     {
-// Create table for storing roles
+        // Create table for storing roles
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
@@ -20,7 +21,7 @@ class EntrustSetupTables extends Migration
             $table->timestamps();
         });
 
-// Create table for associating roles to users (Many-to-Many)
+        // Create table for associating roles to users (Many-to-Many)
         Schema::create('role_user', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();
@@ -33,7 +34,7 @@ class EntrustSetupTables extends Migration
             $table->primary(['user_id', 'role_id']);
         });
 
-// Create table for storing permissions
+        // Create table for storing permissions
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
@@ -42,7 +43,7 @@ class EntrustSetupTables extends Migration
             $table->timestamps();
         });
 
-// Create table for associating permissions to roles (Many-to-Many)
+        // Create table for associating permissions to roles (Many-to-Many)
         Schema::create('permission_role', function (Blueprint $table) {
             $table->integer('permission_id')->unsigned();
             $table->integer('role_id')->unsigned();
@@ -59,7 +60,7 @@ class EntrustSetupTables extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return  void
+     * @return void
      */
     public function down()
     {

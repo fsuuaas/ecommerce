@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Images;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Images;
 
 use app\Antony\DomainLogic\Contracts\Imaging\ImagingInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -6,93 +8,92 @@ use Image;
 
 class ImageProcessor implements ImagingInterface
 {
-
     /**
-     * The root path of the image storage directory
+     * The root path of the image storage directory.
      *
      * @var string
      */
     public $rootPath = '/assets/';
 
     /**
-     * The original path of the image
+     * The original path of the image.
      *
      * @var string
      */
     public $originalPath;
 
     /**
-     * The original name of the image
+     * The original name of the image.
      *
      * @var string
      */
     public $originalName;
 
     /**
-     * Eloquent Model that the image property is related to
+     * Eloquent Model that the image property is related to.
      *
      * @var Model
      */
     public $model;
 
     /**
-     * The image property of the model
+     * The image property of the model.
      *
      * @var string
      */
     public $property;
 
     /**
-     * The quality of the image to be saved
+     * The quality of the image to be saved.
      *
      * @var int
      */
     public $imgQuality = 80;
 
     /**
-     * The storage location of the generated image
+     * The storage location of the generated image.
      *
      * @var string
      */
     public $storageLocation;
 
     /**
-     * A unique generated name, for the image
+     * A unique generated name, for the image.
      *
      * @var string
      */
     public $uniqueName;
 
     /**
-     * Specifies if the image should be resized
+     * Specifies if the image should be resized.
      *
-     * @var boolean
+     * @var bool
      */
     public $resize = false;
 
     /**
-     * Specifies if the image should be resized, using the best fit method
+     * Specifies if the image should be resized, using the best fit method.
      *
-     * @var boolean
+     * @var bool
      */
     public $fit = false;
 
     /**
-     * Intermediate result after processing an image
+     * Intermediate result after processing an image.
      *
      * @var mixed
      */
     public $data;
 
     /**
-     * Dimensions which will be used to resize an image
+     * Dimensions which will be used to resize an image.
      *
      * @var array
      */
     public $resizeDimensions = [];
 
     /**
-     * Initialize key variables, and attempt to link up all the processing functions
+     * Initialize key variables, and attempt to link up all the processing functions.
      *
      * @param Model $model
      * @param $attribute
@@ -114,7 +115,7 @@ class ImageProcessor implements ImagingInterface
 
     /**
      * Creates the image, and saves it to the filesystem
-     * In this case, we are using the intervention image library
+     * In this case, we are using the intervention image library.
      *
      * @return mixed
      */
@@ -123,44 +124,42 @@ class ImageProcessor implements ImagingInterface
         if ($this->resize) {
 
             // get the resize dimensions
-            $height = (int)array_get($this->resizeDimensions, 'new_height', 320);
+            $height = (int) array_get($this->resizeDimensions, 'new_height', 320);
 
-            $width = (int)array_get($this->resizeDimensions, 'new_width', 240);
+            $width = (int) array_get($this->resizeDimensions, 'new_width', 240);
 
             if ($this->fit) {
                 return Image::make($this->originalPath)->fit($width, $height)
-                    ->save(base_path() . $this->storageLocation . '/' . $this->uniqueName, $this->imgQuality);
+                    ->save(base_path().$this->storageLocation.'/'.$this->uniqueName, $this->imgQuality);
             } else {
                 return Image::make($this->originalPath)->resize($width, $height)
-                    ->save(base_path() . $this->storageLocation . '/' . $this->uniqueName, $this->imgQuality);
+                    ->save(base_path().$this->storageLocation.'/'.$this->uniqueName, $this->imgQuality);
             }
-
         } else {
-
             return Image::make($this->originalPath)
-                ->save(base_path() . $this->storageLocation . '/' . $this->uniqueName, $this->imgQuality);
+                ->save(base_path().$this->storageLocation.'/'.$this->uniqueName, $this->imgQuality);
         }
     }
 
     /**
-     * Gets the unique name of an image
+     * Gets the unique name of an image.
      *
      * @return $this
      */
     public function getUniqueImageName()
     {
         // timestamp + slug
-        $name = time() . '-' . str_slug($this->originalName);
+        $name = time().'-'.str_slug($this->originalName);
 
         $name = str_replace($this->getExtension($this->property), '', $name);
 
-        $this->uniqueName = $name . '.' . $this->getExtension($this->property);
+        $this->uniqueName = $name.'.'.$this->getExtension($this->property);
 
         return $this;
     }
 
     /**
-     * Gets the extension of the uploaded image
+     * Gets the extension of the uploaded image.
      *
      * @param $property
      *
@@ -172,7 +171,7 @@ class ImageProcessor implements ImagingInterface
     }
 
     /**
-     * Gets the original name of the image
+     * Gets the original name of the image.
      *
      * @param $property
      *
@@ -186,7 +185,7 @@ class ImageProcessor implements ImagingInterface
     }
 
     /**
-     * Gets the original path of the image uploaded
+     * Gets the original path of the image uploaded.
      *
      * @param $property
      *
@@ -200,7 +199,7 @@ class ImageProcessor implements ImagingInterface
     }
 
     /**
-     * Gets the processed image
+     * Gets the processed image.
      *
      * @return null|string
      */
@@ -208,7 +207,7 @@ class ImageProcessor implements ImagingInterface
     {
         if (empty($this->data)) {
             // failure in processing the image. nothing much we can do
-            return null;
+            return;
         } else {
             $path = $this->data->basePath();
 
@@ -218,7 +217,7 @@ class ImageProcessor implements ImagingInterface
     }
 
     /**
-     * processes the images base bath, to reflect our images storage root directory
+     * processes the images base bath, to reflect our images storage root directory.
      *
      * @param $path
      *
@@ -228,7 +227,6 @@ class ImageProcessor implements ImagingInterface
     {
         $pos = strpos($path, $this->rootPath);
         if ($pos !== false) {
-
             return substr($path, $pos);
         }
 
@@ -236,7 +234,7 @@ class ImageProcessor implements ImagingInterface
     }
 
     /**
-     * Attempts to scale down an image, by finding the best fit
+     * Attempts to scale down an image, by finding the best fit.
      *
      * @param $image
      * @param $times
@@ -250,7 +248,7 @@ class ImageProcessor implements ImagingInterface
 
         if ($result) {
             // create image from data provided. in this case, the data provided is the path to the image
-            $oldImage = Image::make(public_path() . $image);
+            $oldImage = Image::make(public_path().$image);
             // get dimensions
             $width = ceil($oldImage->getWidth() / $times);
 
@@ -264,25 +262,22 @@ class ImageProcessor implements ImagingInterface
             }
 
             // image name
-            $name = str_replace($oldImage->extension, '', $this->uniqueName . '-small' . '.' . $oldImage->extension) . $oldImage->extension;
+            $name = str_replace($oldImage->extension, '', $this->uniqueName.'-small'.'.'.$oldImage->extension).$oldImage->extension;
 
             // path variable
-            $path = base_path() . $this->storageLocation . '/' . $name;
+            $path = base_path().$this->storageLocation.'/'.$name;
 
             // save new image in filesystem
             $newImage = $oldImage->save($path);
             if (empty($newImage)) {
                 // failure in processing the image. nothing much we can do
-                return null;
+                return;
             }
 
             // return the path to the reduced image
             return $this->processImagePath($newImage->basePath());
-
         } else {
-
-            return null;
+            return;
         }
-
     }
 }

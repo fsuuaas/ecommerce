@@ -1,20 +1,22 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Account;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Account;
 
 interface AccountsContract
 {
-
     public function retrieveAuthenticatedUser();
 
     /**
-     * Prompt a user to confirm their password
+     * Prompt a user to confirm their password.
      *
      * @param $user_password
+     *
      * @return mixed
      */
     public function confirmPassword($user_password);
 
     /**
-     * Allows a user to delete their account, with an option to force it, if softDeletes are enabled
+     * Allows a user to delete their account, with an option to force it, if softDeletes are enabled.
      *
      * @param bool $force
      *
@@ -23,7 +25,7 @@ interface AccountsContract
     public function deleteAccount($force = false);
 
     /**
-     * Allows a user to update their account data
+     * Allows a user to update their account data.
      *
      * @param $new_data
      *

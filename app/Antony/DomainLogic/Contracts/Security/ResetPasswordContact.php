@@ -1,10 +1,11 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Security;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Security;
 
 interface ResetPasswordContact
 {
-
     /**
-     * Finds the user with the specified email address
+     * Finds the user with the specified email address.
      *
      * @param $email_address
      *
@@ -13,7 +14,7 @@ interface ResetPasswordContact
     public function getUser($email_address);
 
     /**
-     * Does the actual password reset stuff
+     * Does the actual password reset stuff.
      *
      * @param $request
      *
@@ -22,7 +23,7 @@ interface ResetPasswordContact
     public function resetPassword($request);
 
     /**
-     * Sends a reset email to the user
+     * Sends a reset email to the user.
      *
      * @return mixed
      */

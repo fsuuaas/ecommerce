@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Contracts\ShoppingCart;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\ShoppingCart;
 
 use App\Models\Product;
 use Money\Money;
@@ -6,7 +8,7 @@ use Money\Money;
 interface Discount
 {
     /**
-     * Calculate the discount on a Product
+     * Calculate the discount on a Product.
      *
      * @param Product
      *
@@ -15,7 +17,7 @@ interface Discount
     public function product(Product $product);
 
     /**
-     * Return the rate of the Discount
+     * Return the rate of the Discount.
      *
      * @return mixed
      */

@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2;
 
 use App\Http\Requests\User\ApiRegistrationRequest;
 use Illuminate\Http\Request;
@@ -6,11 +8,11 @@ use JavaScript;
 
 trait oauth2ActionsHandler
 {
-
     /**
-     * Redirects a user to the OAUTH provider login page
+     * Redirects a user to the OAUTH provider login page.
      *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function apiAuth(Request $request)
@@ -24,9 +26,10 @@ trait oauth2ActionsHandler
     }
 
     /**
-     * Handle a callback (redirect) from an OAUTH provider
+     * Handle a callback (redirect) from an OAUTH provider.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function handleOAUTHCallback(Request $request)
@@ -44,9 +47,10 @@ trait oauth2ActionsHandler
     }
 
     /**
-     * Display the mini form that users will fill in prior to registration via an API
+     * Display the mini form that users will fill in prior to registration via an API.
      *
      * @param Request $request
+     *
      * @return \Illuminate\View\View
      */
     public function getMiniRegistrationForm(Request $request)
@@ -56,11 +60,11 @@ trait oauth2ActionsHandler
         return view('auth.fillRemaining', compact('user'));
     }
 
-
     /**
-     * Creates an account using API data
+     * Creates an account using API data.
      *
      * @param ApiRegistrationRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function createAccountViaOAUTHData(ApiRegistrationRequest $request)
@@ -69,5 +73,4 @@ trait oauth2ActionsHandler
             ? $this->auth->createAccount($request)
             : redirect()->route('login');
     }
-
 }

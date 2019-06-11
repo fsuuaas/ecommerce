@@ -1,4 +1,6 @@
-<?php namespace App\ModelObservers;
+<?php
+
+namespace App\ModelObservers;
 
 use App\Antony\DomainLogic\Contracts\Imaging\ImagingInterface;
 use App\Models\Brand;
@@ -6,7 +8,7 @@ use App\Models\Brand;
 class ProductBrandObserver
 {
     /**
-     * The image processor implementation
+     * The image processor implementation.
      *
      * @var ImagingInterface
      */

@@ -1,4 +1,6 @@
-<?php namespace App\ModelObservers;
+<?php
+
+namespace App\ModelObservers;
 
 use App\Antony\DomainLogic\Contracts\Imaging\ImagingInterface;
 use App\Models\Product;
@@ -6,7 +8,7 @@ use App\Models\Product;
 class ProductObserver
 {
     /**
-     * The image processor implementation
+     * The image processor implementation.
      *
      * @var ImagingInterface
      */
@@ -83,14 +85,11 @@ class ProductObserver
         $result = null;
 
         foreach ($images as $image) {
-
             if (file_exists_on_server($image)) {
-
                 $result = delete_file($image);
             }
         }
 
         return $result;
     }
-
 }

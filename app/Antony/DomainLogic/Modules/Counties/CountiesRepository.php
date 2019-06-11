@@ -1,14 +1,14 @@
-<?php namespace app\Antony\DomainLogic\Modules\Counties;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Counties;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\County;
 
 class CountiesRepository extends EloquentRepository
 {
-
-
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */

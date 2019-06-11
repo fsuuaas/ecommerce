@@ -1,10 +1,10 @@
-<?php namespace App\Events;
+<?php
 
-use App\Events\Event;
+namespace App\Events;
+
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserWasLoggedIn extends Event
 {

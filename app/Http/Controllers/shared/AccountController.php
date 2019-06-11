@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Shared;
+<?php
+
+namespace App\Http\Controllers\Shared;
 
 use app\Antony\DomainLogic\Modules\Accounts\AccountsRepository;
 use App\Http\Controllers\Controller;
@@ -13,7 +15,7 @@ use Illuminate\Http\Request;
 class AccountController extends Controller
 {
     /**
-     * The accounts repository
+     * The accounts repository.
      *
      * @var AccountsRepository
      */
@@ -21,7 +23,7 @@ class AccountController extends Controller
 
     /**
      * @param AccountsRepository $accounts
-     * @param Request $request
+     * @param Request            $request
      */
     public function __construct(AccountsRepository $accounts, Request $request)
     {
@@ -31,7 +33,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Displays data about a user
+     * Displays data about a user.
      *
      * @return \Illuminate\View\View
      */
@@ -40,15 +42,14 @@ class AccountController extends Controller
         $user = $this->accounts->getUserData();
 
         if ($this->accounts->backend) {
-
             return view('backend.account.index', compact('user'));
         }
-        return view('shared.account.index', compact('user'));
 
+        return view('shared.account.index', compact('user'));
     }
 
     /**
-     * Update a user's contact information
+     * Update a user's contact information.
      *
      * @param ContactInfo $request
      *
@@ -61,9 +62,8 @@ class AccountController extends Controller
         return $this->handleRedirect($request);
     }
 
-
     /**
-     * Updates a user's password
+     * Updates a user's password.
      *
      * @param updatePasswordRequest $request
      *
@@ -77,11 +77,11 @@ class AccountController extends Controller
     }
 
     /**
-     * Updates another user's password
+     * Updates another user's password.
      *
      * @param updatePasswordRequest $request
-     *
      * @param $user_id
+     *
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function patchAnotherUsersPassword(updatePasswordRequest $request, $user_id)
@@ -92,7 +92,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Updates a user's shipping details
+     * Updates a user's shipping details.
      *
      * @param updateShippingInfo $request
      *
@@ -106,7 +106,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Updates a user's account
+     * Updates a user's account.
      *
      * @param CreateUserAccountRequest $request
      *
@@ -120,7 +120,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Adds more data to a user's account
+     * Adds more data to a user's account.
      *
      * @param addMoreAccountInfo $addMoreAccountInfo
      *
@@ -135,7 +135,7 @@ class AccountController extends Controller
 
     /**
      * Allows user's to be sure about destructive actions by confirming their password
-     * Once they do, we save a key in the session, to prevent asking them to do this again
+     * Once they do, we save a key in the session, to prevent asking them to do this again.
      *
      * @param DestructiveActionRequest|Request $request
      *
@@ -144,8 +144,7 @@ class AccountController extends Controller
     public function confirmPassword(DestructiveActionRequest $request)
     {
         if ($this->accounts->confirmPassword($request->get('password'))) {
-
-            $request->getSession()->set('password.confirmed-' . $request->user()->id, true);
+            $request->getSession()->set('password.confirmed-'.$request->user()->id, true);
 
             return response()->json(['target' => $request->get('proceedTo')]);
         }
@@ -154,7 +153,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Deletes an account. Not actually though, since our users model implements the soft deletes trait
+     * Deletes an account. Not actually though, since our users model implements the soft deletes trait.
      *
      * @param Request $request
      *
@@ -162,8 +161,7 @@ class AccountController extends Controller
      */
     public function deleteAccount(Request $request)
     {
-        if ($request->getSession()->has('password.confirmed-' . $request->user()->id)) {
-
+        if ($request->getSession()->has('password.confirmed-'.$request->user()->id)) {
             $this->data = $this->accounts->deleteAccount();
 
             return $this->handleRedirect($request, route('home'));
@@ -174,7 +172,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Permanently destroys a user's account
+     * Permanently destroys a user's account.
      *
      * @param Request $request
      *
@@ -182,8 +180,7 @@ class AccountController extends Controller
      */
     public function destroy(Request $request)
     {
-        if ($request->getSession()->has('password.confirmed' . h($request->user()->id))) {
-
+        if ($request->getSession()->has('password.confirmed'.h($request->user()->id))) {
             $this->data = $this->accounts->deleteAccount(true);
 
             return $this->handleRedirect($request, route('home'));
@@ -192,5 +189,4 @@ class AccountController extends Controller
 
         return redirect()->back();
     }
-
 }

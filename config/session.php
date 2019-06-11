@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'lifetime' => 180,
+    'lifetime'        => 180,
     'expire_on_close' => false,
 
     /*
@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'files' => storage_path() . '/framework/sessions',
+    'files' => storage_path().'/framework/sessions',
 
     /*
     |--------------------------------------------------------------------------
@@ -135,7 +135,7 @@ return [
     */
 
     'domain' => null,
-    
+
     /*
     |--------------------------------------------------------------------------
     | HTTPS Only Cookies

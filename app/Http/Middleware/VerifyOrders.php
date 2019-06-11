@@ -1,11 +1,12 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use app\Antony\DomainLogic\Modules\Cookies\OrderCookie;
 use Closure;
 
 class VerifyOrders
 {
-
     /**
      * @var OrderCookie
      */
@@ -16,15 +17,14 @@ class VerifyOrders
      */
     public function __construct(OrderCookie $orderCookie)
     {
-
         $this->orderCookie = $orderCookie;
     }
 
     /**
-     * Checks that a user has made an order. This is used when the user needs to view their invoice after submitting an order
+     * Checks that a user has made an order. This is used when the user needs to view their invoice after submitting an order.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -32,7 +32,6 @@ class VerifyOrders
     {
         if (is_null($request->user())) {
             if ($this->orderCookie->exists()) {
-
                 if (!empty($this->orderCookie->fetch()->get())) {
                     return $next($request);
                 }
@@ -45,5 +44,4 @@ class VerifyOrders
 
         return $next($request);
     }
-
 }

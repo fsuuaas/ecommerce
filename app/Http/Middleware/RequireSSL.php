@@ -1,15 +1,16 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use Closure;
 
 class RequireSSL
 {
-
     /**
-     * Enforces the secure attribute for a request
+     * Enforces the secure attribute for a request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -21,5 +22,4 @@ class RequireSSL
 
         return $next($request);
     }
-
 }

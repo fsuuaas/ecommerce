@@ -1,11 +1,12 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use app\Antony\DomainLogic\Modules\Checkout\Guest\GuestBillingAddress;
 use Closure;
 
 class CheckOutAsGuest
 {
-
     /**
      * @var GuestBillingAddress
      */
@@ -20,10 +21,10 @@ class CheckOutAsGuest
     }
 
     /**
-     * This middleware checks that a guest user is indeed checking out
+     * This middleware checks that a guest user is indeed checking out.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -35,8 +36,7 @@ class CheckOutAsGuest
             // For a successful guest checkout to be initialized, we pass in an allow=1 param into the url
             // This is because later, the checkout cookie will be used to verify that the user is a guest, and for now
             // it does not exist until the user fills in the guest user details form
-            if ($request->get('allow') === "1" & empty($this->guest->getCookieData())) {
-
+            if ($request->get('allow') === '1' & empty($this->guest->getCookieData())) {
                 return $next($request);
             }
 
@@ -44,11 +44,11 @@ class CheckOutAsGuest
             if ($this->guest->isAGuest()) {
                 return $next($request);
             }
+
             return redirect()->guest(route('checkout.auth'));
         }
 
         // if the user is authenticated, then we skip step1 of checkout, which is filling in guest data
         return redirect()->route('u.checkout.step2');
     }
-
 }

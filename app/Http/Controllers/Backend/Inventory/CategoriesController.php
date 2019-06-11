@@ -13,7 +13,7 @@ use yajra\Datatables\Datatables;
 class CategoriesController extends Controller
 {
     /**
-     * The categories module
+     * The categories module.
      *
      * @var CategoriesRepository
      */
@@ -28,7 +28,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Display a listing of categories
+     * Display a listing of categories.
      *
      * @return Response
      */
@@ -42,7 +42,6 @@ class CategoriesController extends Controller
      */
     public function getDataTable()
     {
-
         $categories = $this->category->select(['id', 'name', 'created_at', 'updated_at']);
 
         return Datatables::of($categories)->addColumn('edit', function ($category) {
@@ -51,7 +50,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new Category
+     * Show the form for creating a new Category.
      *
      * @return Response
      */
@@ -72,13 +71,13 @@ class CategoriesController extends Controller
         $this->data = $this->category->add($request->all());
 
         return $this->handleRedirect($request, route('backend.categories.index'));
-
     }
 
     /**
      * Display the specified Category.
      *
      * @param Category $category
+     *
      * @return Response
      */
     public function show(Category $category)
@@ -90,6 +89,7 @@ class CategoriesController extends Controller
      * Show the form for editing the specified Category.
      *
      * @param Category $category
+     *
      * @return Response
      */
     public function edit(Category $category)
@@ -101,8 +101,8 @@ class CategoriesController extends Controller
      * Update the specified Category in storage.
      *
      * @param CategoryRequest $request
+     * @param Category        $category
      *
-     * @param Category $category
      * @return Response
      */
     public function update(CategoryRequest $request, Category $category)
@@ -116,10 +116,11 @@ class CategoriesController extends Controller
      * Remove the specified Category from storage.
      *
      * @param DeleteInventoryRequest $request
+     * @param Category               $category
      *
-     * @param Category $category
-     * @return Response
      * @throws \Exception
+     *
+     * @return Response
      */
     public function destroy(DeleteInventoryRequest $request, Category $category)
     {
@@ -127,5 +128,4 @@ class CategoriesController extends Controller
 
         return $this->handleRedirect($request, route('backend.categories.index'));
     }
-
 }

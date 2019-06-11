@@ -8,7 +8,6 @@ use App\Http\Requests\Reviews\ReviewProductRequest;
 
 class ReviewsController extends Controller
 {
-
     /**
      * @var reviewsRepository
      */
@@ -19,10 +18,8 @@ class ReviewsController extends Controller
      */
     public function __construct(ReviewsRepository $productReviews)
     {
-
         $this->productReviews = $productReviews;
     }
-
 
     /**
      * @return \Illuminate\Http\RedirectResponse
@@ -34,13 +31,12 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Allows users to submit a product review
+     * Allows users to submit a product review.
      *
      * @param ReviewProductRequest $request
      * @param $productID
      *
      * @return \Illuminate\Http\RedirectResponse
-     *
      */
     public function store(ReviewProductRequest $request, $productID)
     {
@@ -48,11 +44,10 @@ class ReviewsController extends Controller
 
         $this->data = $this->productReviews->add($data);
 
-        $this->setSuccessMessage("Your review was saved");
+        $this->setSuccessMessage('Your review was saved');
 
         return $this->handleRedirect($request);
     }
-
 
     /**
      * @param $id
@@ -63,7 +58,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Allows users to update their reviews
+     * Allows users to update their reviews.
      *
      * @param ReviewProductRequest $request
      * @param $id
@@ -74,9 +69,8 @@ class ReviewsController extends Controller
     {
         $this->data = $this->productReviews->edit($id, $request->all());
 
-        $this->setSuccessMessage("Your review has been updated");
+        $this->setSuccessMessage('Your review has been updated');
 
         return $this->handleRedirect($request);
     }
-
 }

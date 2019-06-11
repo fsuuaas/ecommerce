@@ -1,4 +1,6 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use app\Antony\DomainLogic\Modules\ShoppingCart\Base\Main\Basket as ShoppingCartEntity;
 use Closure;
@@ -6,7 +8,7 @@ use Closure;
 class VerifyShoppingCart
 {
     /**
-     * The shopping cart
+     * The shopping cart.
      *
      * @var ShoppingCartEntity
      */
@@ -21,10 +23,10 @@ class VerifyShoppingCart
     }
 
     /**
-     * Checks that a user has a shopping cart, and that it has products. Useful for checking out
+     * Checks that a user has a shopping cart, and that it has products. Useful for checking out.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -32,11 +34,9 @@ class VerifyShoppingCart
     {
         // check if the shopping cart has any items
         if ($this->shoppingCart->hasProducts()) {
-
             return $next($request);
         }
 
         return view('frontend.cart.index');
     }
-
 }

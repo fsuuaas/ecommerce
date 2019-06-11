@@ -1,24 +1,25 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Cookies;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Cookies;
 
 interface CookieRepositoryInterface
 {
-
     /**
-     * Get cookie data
+     * Get cookie data.
      *
      * @return mixed
      */
     public function fetch();
 
     /**
-     * Check if a cookie exists
+     * Check if a cookie exists.
      *
      * @return mixed
      */
     public function exists();
 
     /**
-     * Create a cookie
+     * Create a cookie.
      *
      * @param $data
      *
@@ -27,10 +28,9 @@ interface CookieRepositoryInterface
     public function create($data);
 
     /**
-     * Destroy a cookie
+     * Destroy a cookie.
      *
      * @return mixed
      */
     public function destroy();
-
 }

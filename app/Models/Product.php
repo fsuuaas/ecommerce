@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use app\Antony\DomainLogic\Modules\Product\Traits\ProductReconciler;
 use app\Antony\DomainLogic\Modules\Product\Traits\ProductReviewsTrait;
@@ -15,7 +17,6 @@ use Money\Money;
 class Product extends \Eloquent
 {
     use PresentableTrait;
-
     use ProductTrait, DiscountsTrait, ProductReviewsTrait, SoftDeletes, ProductReconciler;
 
     protected $presenter = NamePresenter::class;
@@ -34,14 +35,14 @@ class Product extends \Eloquent
         'image',
         'category_id',
         'subcategory_id',
-        'brand_id'
+        'brand_id',
     ];
 
     protected $casts = [
         'available' => 'boolean',
-        'free' => 'boolean',
-        'taxable' => 'boolean',
-        'zoomable' => 'boolean'
+        'free'      => 'boolean',
+        'taxable'   => 'boolean',
+        'zoomable'  => 'boolean',
     ];
 
     /**
@@ -71,7 +72,7 @@ class Product extends \Eloquent
      */
     public function getPriceAttribute($value)
     {
-        $value = new Money((int)$value, new Currency(config('site.money.default_currency', 'KES')));
+        $value = new Money((int) $value, new Currency(config('site.money.default_currency', 'KES')));
 
         return $value;
     }
@@ -93,7 +94,7 @@ class Product extends \Eloquent
      */
     public function getShippingAttribute($value)
     {
-        return new Money((int)$value, new Currency(config('site.money.default_currency', 'KES')));
+        return new Money((int) $value, new Currency(config('site.money.default_currency', 'KES')));
     }
 
     /**
@@ -185,5 +186,4 @@ class Product extends \Eloquent
     {
         return $this->belongsToMany(\App\Models\Order::class)->withPivot('quantity')->withTimestamps();
     }
-
 }

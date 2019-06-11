@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Base;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\ShoppingCart\Base;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\Cart;
@@ -6,7 +8,7 @@ use App\Models\Cart;
 class ShoppingCartRepository extends EloquentRepository
 {
     /**
-     * Adds a shopping cart to the database
+     * Adds a shopping cart to the database.
      *
      * @param $data
      *
@@ -39,16 +41,16 @@ class ShoppingCartRepository extends EloquentRepository
 
     /**
      * Attempts to find a shopping cart, using the params provided
-     * When association is set to true, once the cart is found it will be automatically linked to the authenticated user
+     * When association is set to true, once the cart is found it will be automatically linked to the authenticated user.
      *
      * @param $id
      * @param array $relationships
-     * @param bool $throwExceptionIfNotFound
-     *
+     * @param bool  $throwExceptionIfNotFound
      * @param array $columns
+     *
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Support\Collection|null|static
      */
-    public function find($id, $relationships = [], $throwExceptionIfNotFound = true, $columns = array('*'))
+    public function find($id, $relationships = [], $throwExceptionIfNotFound = true, $columns = ['*'])
     {
         $data = parent::find($id, $relationships, $throwExceptionIfNotFound = false, $columns);
 
@@ -73,11 +75,11 @@ class ShoppingCartRepository extends EloquentRepository
             return 0;
         }
 
-        return (int)$data;
+        return (int) $data;
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */

@@ -6,9 +6,8 @@ use Illuminate\Routing\Controller;
 
 class HomeController extends Controller
 {
-
     /**
-     * Shows the sites homepage
+     * Shows the sites homepage.
      *
      * @return \Illuminate\View\View
      */
@@ -16,5 +15,4 @@ class HomeController extends Controller
     {
         return view('frontend.index');
     }
-
 }

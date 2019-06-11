@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Articles;
+<?php
+
+namespace App\Http\Requests\Articles;
 
 use App\Http\Requests\Request;
 
 class ArticleRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,9 +24,8 @@ class ArticleRequest extends Request
     public function rules()
     {
         return [
-            'topic' => 'required|between:5,50',
-            'content' => 'required'
+            'topic'   => 'required|between:5,50',
+            'content' => 'required',
         ];
     }
-
 }

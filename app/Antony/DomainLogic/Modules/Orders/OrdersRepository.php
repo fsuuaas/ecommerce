@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Orders;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Orders;
 
 use app\Antony\DomainLogic\Contracts\Invoice\InvoiceContract;
 use app\Antony\DomainLogic\Contracts\Orders\ProductOrderContract;
@@ -14,7 +16,6 @@ use Illuminate\Container\Container;
 
 class OrdersRepository extends EloquentRepository implements ProductOrderContract, InvoiceContract
 {
-
     // create invoices
     use InvoicingTrait;
 
@@ -49,11 +50,11 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
     private $orderCookie;
 
     /**
-     * @param Container $container
-     * @param Basket $shoppingCart
-     * @param CheckOutCookie $checkoutCookie
+     * @param Container         $container
+     * @param Basket            $shoppingCart
+     * @param CheckOutCookie    $checkoutCookie
      * @param InvoiceRepository $invoiceRepository
-     * @param OrderCookie $orderCookie
+     * @param OrderCookie       $orderCookie
      */
     public function __construct(Container $container, Basket $shoppingCart, CheckOutCookie $checkoutCookie, InvoiceRepository $invoiceRepository, OrderCookie $orderCookie)
     {
@@ -63,11 +64,10 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
         $this->checkoutCookie = $checkoutCookie;
         $this->invoiceRepository = $invoiceRepository;
         $this->orderCookie = $orderCookie;
-
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */
@@ -77,9 +77,10 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
     }
 
     /**
-     * Display a user's order
+     * Display a user's order.
      *
      * @param $order_id
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function displaySpecificOrder($order_id)
@@ -129,8 +130,8 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
         $cart_data = $this->shoppingCart->displayShoppingCart();
 
         $data = [
-            'cart_data' => $cart_data,
-            'user_data' => array_get($this->checkoutCookie->fetch()->get(), 'data'),
+            'cart_data'     => $cart_data,
+            'user_data'     => array_get($this->checkoutCookie->fetch()->get(), 'data'),
             'products_data' => $this->shoppingCart->retrieveProductsInCart(),
         ];
 
@@ -149,7 +150,6 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
     public function add($data)
     {
         $this->model->creating(function ($order) use ($data) {
-
             $order->id = $this->generateOrderId();
 
             // add the shopping cart data
@@ -184,21 +184,17 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
 
         // handle the model created event
         $this->model->created(function ($order) use ($products_data, $user_data, $cart_data) {
-
             foreach ($cart_data['products'] as $_product) {
                 // add each product to the join table => order_product
                 $products_data->each(function ($product) use ($order, $_product, $products_data) {
-
                     $order->products()->attach([$product->id], ['quantity' => $_product['quantity']], [$order->id]);
 
                     // decrement product quantity
                     $product->quantity = $product->quantity - $_product['quantity'];
 
                     $product->save();
-
                 });
             }
-
 
             // add user/guest info to the join table => order_user
             if (!is_null(auth()->user())) {
@@ -257,7 +253,6 @@ class OrdersRepository extends EloquentRepository implements ProductOrderContrac
      */
     public function destroyOrderCookie()
     {
-
         return $this->orderCookie->destroy();
     }
 

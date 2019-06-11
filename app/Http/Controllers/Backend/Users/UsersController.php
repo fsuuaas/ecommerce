@@ -11,9 +11,8 @@ use yajra\Datatables\Datatables;
 
 class UsersController extends Controller
 {
-
     /**
-     * The user entity
+     * The user entity.
      *
      * @var UserRepository
      */
@@ -40,7 +39,6 @@ class UsersController extends Controller
      */
     public function getDataTable()
     {
-
         $usrs = $this->users->with(['county'])->select('*');
 
         $data = Datatables::of($usrs)->addColumn('edit', function ($user) {
@@ -68,6 +66,7 @@ class UsersController extends Controller
 
     /**
      * @param CreateUserAccountRequest $accountRequest
+     *
      * @return $this|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function store(CreateUserAccountRequest $accountRequest)
@@ -78,8 +77,8 @@ class UsersController extends Controller
     }
 
     /**
-     *
      * @param User $user
+     *
      * @return \Illuminate\View\View
      */
     public function show(User $user)
@@ -88,8 +87,8 @@ class UsersController extends Controller
     }
 
     /**
-     *
      * @param User $user
+     *
      * @return \Illuminate\View\View
      */
     public function edit(User $user)
@@ -107,15 +106,15 @@ class UsersController extends Controller
         $this->data = $user->update($request->all());
 
         return $this->handleRedirect($request);
-
     }
 
     /**
      * @param DeleteUsrRequest $request
+     * @param User             $user
      *
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function destroy(DeleteUsrRequest $request, User $user)
     {
@@ -123,5 +122,4 @@ class UsersController extends Controller
 
         return $this->handleRedirect($request, route('backend.users.index'));
     }
-
 }

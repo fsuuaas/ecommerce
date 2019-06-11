@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Security;
+<?php
+
+namespace App\Http\Requests\Security;
 
 use App\Http\Requests\Request;
 
 class PermissionsRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,16 +24,15 @@ class PermissionsRequest extends Request
     public function rules()
     {
         $rules = [
-            'name' => 'required|between:3,100|unique:permissions',
+            'name'         => 'required|between:3,100|unique:permissions',
             'display_name' => 'required|between:3,50',
-            'description' => 'required|between:3,255',
+            'description'  => 'required|between:3,255',
         ];
 
         if ($this->isMethod('patch')) {
-            $rules['name'] = 'required|unique:permissions,id,' . $this->get('id');
+            $rules['name'] = 'required|unique:permissions,id,'.$this->get('id');
         }
 
         return $rules;
     }
-
 }

@@ -1,11 +1,12 @@
-<?php namespace app\Models;
+<?php
+
+namespace app\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends \Eloquent
 {
-
     use SoftDeletes;
 
     protected $fillable = ['content', 'topic'];

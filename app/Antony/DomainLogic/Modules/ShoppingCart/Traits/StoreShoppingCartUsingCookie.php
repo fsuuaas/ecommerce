@@ -1,12 +1,13 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Traits;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\ShoppingCart\Traits;
 
 use App\Models\Cart;
 
 trait StoreShoppingCartUsingCookie
 {
-
     /**
-     * Creates & queues our shopping cart cookie to be sent with the next response from our application
+     * Creates & queues our shopping cart cookie to be sent with the next response from our application.
      */
     public function persistShoppingCart($cart)
     {
@@ -15,7 +16,7 @@ trait StoreShoppingCartUsingCookie
 
     /**
      * Get data from the shopping cart cookie. If a null attribute is
-     * provided, we just return the whole cart object
+     * provided, we just return the whole cart object.
      *
      * @param string $attribute
      *
@@ -24,11 +25,10 @@ trait StoreShoppingCartUsingCookie
     public function getShoppingCart($attribute = 'id')
     {
         return !is_null($attribute) ? $this->cookie->fetch()->get($attribute) : $this->cookie->fetch()->get();
-
     }
 
     /**
-     * Get data from the shopping cart cookie
+     * Get data from the shopping cart cookie.
      *
      * @return array|null
      */
@@ -44,5 +44,4 @@ trait StoreShoppingCartUsingCookie
     {
         return $this->cookie->destroy();
     }
-
 }

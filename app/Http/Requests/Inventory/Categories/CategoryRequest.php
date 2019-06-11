@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Inventory\Categories;
+<?php
+
+namespace App\Http\Requests\Inventory\Categories;
 
 use App\Http\Requests\Request;
 
 class CategoryRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,16 +24,15 @@ class CategoryRequest extends Request
     public function rules()
     {
         $rules = [
-            'name' => 'required|between:3,50|unique:categories',
-            'alias' => 'alpha_dash|between:3,50',
+            'name'   => 'required|between:3,50|unique:categories',
+            'alias'  => 'alpha_dash|between:3,50',
             'banner' => 'image|between:5,2000',
         ];
 
         if ($this->isMethod('PATCH')) {
-            $rules['name'] = 'required|between:3,50|unique:categories,id,' . $this->get('id');
+            $rules['name'] = 'required|between:3,50|unique:categories,id,'.$this->get('id');
         }
 
         return $rules;
     }
-
 }

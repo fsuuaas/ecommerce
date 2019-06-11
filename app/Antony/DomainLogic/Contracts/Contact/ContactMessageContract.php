@@ -1,10 +1,11 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Contact;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Contact;
 
 interface ContactMessageContract
 {
-
     /**
-     * Sends the contact message
+     * Sends the contact message.
      *
      * @param $data
      *

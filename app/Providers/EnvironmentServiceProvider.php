@@ -1,10 +1,11 @@
-<?php namespace App\Providers;
+<?php
+
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 class EnvironmentServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      *
@@ -35,5 +36,4 @@ class EnvironmentServiceProvider extends ServiceProvider
     {
         //
     }
-
 }

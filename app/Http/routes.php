@@ -6,7 +6,6 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
     get('/', ['as' => 'home', 'uses' => 'Frontend\HomeController@index']);
 
     Route::group(['prefix' => 'help', 'namespace' => 'Shared'], function () {
-
         get('/', ['as' => 'help', 'uses' => 'HelpController@index']);
         // help & faq
         get('/faq', ['as' => 'faq', 'uses' => 'HelpController@displayFAQ']);
@@ -41,7 +40,6 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
 
             // posting to the login page, for credentials validation
             post('/', ['as' => 'login.verify', 'uses' => 'AuthController@postLogin']);
-
         });
 
         // OAUTH
@@ -56,7 +54,6 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
 
             // handle user verification via OAUTH
             get('/callback', ['as' => 'auth.getDataFromAPI', 'uses' => 'AuthController@handleOAUTHCallback']);
-
         });
 
         // registration
@@ -92,12 +89,10 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
             // save the new password
             post('/new', ['as' => 'reset.finish', 'uses' => 'PasswordController@postReset']);
         });
-
-
     });
 
     // usr account
-    Route::group(['prefix' => "account", 'namespace' => 'Shared', 'middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'account', 'namespace' => 'Shared', 'middleware' => ['auth']], function () {
 
         // account customizations
         get('/', ['as' => 'myaccount', 'uses' => 'AccountController@index']);
@@ -113,11 +108,10 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
         patch('/password/new', ['as' => 'account.password.edit', 'uses' => 'AccountController@patchPassword']);
 
         delete('/delete', ['as' => 'account.delete.temporary', 'uses' => 'AccountController@deleteAccount']);
-
     });
 
     // shop
-    Route::group(['prefix' => 'shop', 'namespace' => 'Frontend\Inventory'], function(){
+    Route::group(['prefix' => 'shop', 'namespace' => 'Frontend\Inventory'], function () {
         // categories
         Route::group(['prefix' => 'categories'], function () {
             // listing categories. sort of sitemaping, or whatever
@@ -129,7 +123,6 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
 
         // subcategories
         Route::group(['prefix' => 'sub-categories'], function () {
-
             get('/', ['as' => 'allSubCategories', 'uses' => 'SubCategoriesController@index']);
 
             get('/{subcategories}', ['as' => 'subcategories.shop', 'uses' => 'SubCategoriesController@show']);
@@ -137,16 +130,13 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
 
         // products
         Route::group(['prefix' => 'products'], function () {
-
             get('/', ['as' => 'allProducts', 'uses' => 'ProductsController@index']);
 
             get('/{products}', ['as' => 'product.view', 'uses' => 'ProductsController@show']);
-
         });
 
         // brands
         Route::group(['prefix' => 'brands'], function () {
-
             get('/', ['as' => 'allBrands', 'uses' => 'BrandsController@index']);
 
             get('/{brands}', ['as' => 'brands.shop', 'uses' => 'BrandsController@show']);
@@ -161,7 +151,6 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
 
     // basket
     Route::group(['prefix' => 'basket', 'namespace' => 'Frontend\Basket'], function () {
-
         get('/', ['as' => 'cart.index', 'uses' => 'CartController@index']);
         // adding a product to the cart
         post('add/product/{products}', ['as' => 'cart.add', 'uses' => 'CartController@store']);
@@ -176,14 +165,12 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
 
         // a users shopping cart
         Route::group(['prefix' => '', 'middleware' => ['auth']], function () {
-
             get('/', ['as' => 'mycart', 'uses' => 'CartController@getMine']);
         });
     });
 
     // reviews
     Route::group(['prefix' => 'reviews', 'namespace' => 'Frontend\Reviews', 'middleware' => ['auth']], function () {
-
         post('/save/product/{productID}', ['as' => 'product.reviews.store', 'uses' => 'ReviewsController@store', 'middleware' => 'reviews.check']);
 
         patch('/edit/{id}', ['as' => 'product.reviews.update', 'uses' => 'ReviewsController@update']);
@@ -193,7 +180,6 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
 
     // checking out as a guest user
     Route::group(['prefix' => 'checkout/guest', 'namespace' => 'Frontend\Checkout', 'middleware' => ['cart.check', 'checkout.guest']], function () {
-
         get('/', ['as' => 'checkout.step1', 'uses' => 'GuestCheckoutController@guestInfo']);
 
         post('/aboutMe', ['as' => 'checkout.step1.store', 'uses' => 'GuestCheckoutController@postGuestInfo']);
@@ -213,11 +199,10 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
         get('/createAccount', ['as' => 'checkout.createAccount', 'uses' => 'GuestCheckoutController@getCreateAccount']);
 
         post('/createAccount', ['as' => 'checkout.createAccount.post', 'uses' => 'GuestCheckoutController@createAccount']);
-
     });
 
     // orders for a guest user
-    Route::group(['prefix' => 'checkout/guest/orders', 'namespace' => 'Frontend\Orders', 'middleware' => ['cart.check', 'checkout.guest']], function(){
+    Route::group(['prefix' => 'checkout/guest/orders', 'namespace' => 'Frontend\Orders', 'middleware' => ['cart.check', 'checkout.guest']], function () {
         post('/placeOrder', ['as' => 'checkout.submitOrder', 'uses' => 'OrdersController@store']);
 
         get('/viewInvoice', ['as' => 'checkout.viewInvoice', 'uses' => 'OrdersController@displayInvoice', 'middleware' => ['orders.verify']]);
@@ -229,7 +214,6 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
 
     // checking out as a normal authenticated user
     Route::group(['prefix' => 'checkout', 'namespace' => 'Frontend\Checkout', 'middleware' => ['cart.check', 'checkout.user']], function () {
-
         get('/', ['as' => 'u.checkout.step2', 'uses' => 'AuthUserCheckoutController@index']);
 
         patch('/shipping', ['as' => 'u.checkout.step2.patch', 'uses' => 'AuthUserCheckoutController@shipping']);
@@ -239,12 +223,10 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
         post('/payment', ['as' => 'u.checkout.step3.post', 'uses' => 'AuthUserCheckoutController@storePayment']);
 
         get('/reviewOrder', ['as' => 'u.checkout.step4', 'uses' => 'AuthUserCheckoutController@reviewOrder']);
-
-
     });
 
     //
-    Route::group(['prefix' => 'checkout/orders', 'namespace' => 'Frontend\Orders', 'middleware' => ['cart.check', 'checkout.user']], function(){
+    Route::group(['prefix' => 'checkout/orders', 'namespace' => 'Frontend\Orders', 'middleware' => ['cart.check', 'checkout.user']], function () {
         get('/viewInvoice', ['as' => 'u.checkout.viewInvoice', 'uses' => 'OrdersController@displayInvoice', 'middleware' => ['orders.verify']]);
 
         get('/invoice/pdf', ['as' => 'u.checkout.viewInvoice.pdf', 'uses' => 'OrdersController@printInvoice', 'middleware' => ['orders.verify']]);
@@ -255,10 +237,8 @@ Route::group(['prefix' => '', 'middleware' => 'http'], function () {
     });
     // users orders
     Route::group(['prefix' => 'myorders', 'namespace' => 'Frontend\Orders', 'middleware' => ['auth', 'orders.verify']], function () {
-
         get('/', ['as' => 'myorders', 'uses' => 'OrdersController@index']);
 
         get('/{orders}', ['as' => 'viewOrder', 'uses' => 'OrdersController@show']);
-
     });
 });

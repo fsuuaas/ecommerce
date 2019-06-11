@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\ShoppingCart\Formatters;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\ShoppingCart\Formatters;
 
 use app\Antony\DomainLogic\Contracts\ShoppingCart\Formatter;
 use app\Antony\DomainLogic\Contracts\ShoppingCart\Percentage;
@@ -6,7 +8,7 @@ use app\Antony\DomainLogic\Contracts\ShoppingCart\Percentage;
 class PercentFormatter implements Formatter
 {
     /**
-     * Format an input to an output
+     * Format an input to an output.
      *
      * @param mixed $value
      *
@@ -14,10 +16,10 @@ class PercentFormatter implements Formatter
      */
     public function format($value)
     {
-        if ($value instanceOf Percentage) {
+        if ($value instanceof Percentage) {
             $value = $value->toPercent();
         }
 
-        return $value->int() . '%';
+        return $value->int().'%';
     }
 }

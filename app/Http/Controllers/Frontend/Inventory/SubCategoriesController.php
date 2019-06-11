@@ -11,7 +11,7 @@ use Response;
 class SubCategoriesController extends Controller
 {
     /**
-     * The subcategories repository
+     * The subcategories repository.
      *
      * @var SubCategoriesRepository
      */
@@ -27,7 +27,7 @@ class SubCategoriesController extends Controller
 
     /**
      * Display a listing of the resource.
-     * GET /subcategories
+     * GET /subcategories.
      *
      * @return Response
      */
@@ -38,11 +38,11 @@ class SubCategoriesController extends Controller
 
     /**
      * Display the specified resource.
-     * GET /subcategories/{id}
+     * GET /subcategories/{id}.
      *
-     * @param Request $request
-     *
+     * @param Request     $request
      * @param SubCategory $subCategory
+     *
      * @return Response
      */
     public function show(Request $request, SubCategory $subCategory)

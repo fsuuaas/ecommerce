@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Authentication\Traits\oauth2;
 
 use Illuminate\Http\Request;
 use Laravel\Socialite\Contracts\User;
@@ -6,7 +8,7 @@ use Laravel\Socialite\Contracts\User;
 trait oauth2Authenticator
 {
     /**
-     * Redirects a user to an OAUTH provider
+     * Redirects a user to an OAUTH provider.
      *
      * @param $has_code
      * @param $provider
@@ -17,9 +19,7 @@ trait oauth2Authenticator
     {
         // if we have a code in the request, then we attempt to gather data about our user
         if ($has_code) {
-
             return $this->handleProviderCallback($provider);
-
         } else {
             // we redirect to the provider login page
             return $this->getAuthorizationFirst($provider);
@@ -27,7 +27,7 @@ trait oauth2Authenticator
     }
 
     /**
-     * Handles a callback from an OAUTH API provider. This will be placed in the OAUTH redirect url handler
+     * Handles a callback from an OAUTH API provider. This will be placed in the OAUTH redirect url handler.
      *
      * @param $api
      *
@@ -41,7 +41,7 @@ trait oauth2Authenticator
     }
 
     /**
-     * Returns the user data from an api call
+     * Returns the user data from an api call.
      *
      * @param $api
      *
@@ -53,9 +53,10 @@ trait oauth2Authenticator
     }
 
     /**
-     * Redirects the client to the OAUTH provider sign in page
+     * Redirects the client to the OAUTH provider sign in page.
      *
      * @param $provider
+     *
      * @return mixed
      */
     private function getAuthorizationFirst($provider)
@@ -65,7 +66,7 @@ trait oauth2Authenticator
 
     /**
      * Checks the API data returned with what we have in the db. Then logs them in
-     * There's an option to create an account for them
+     * There's an option to create an account for them.
      *
      * @param User $api_user
      * @param bool $createNew
@@ -81,7 +82,6 @@ trait oauth2Authenticator
         $user = $this->userRepository->getFirstBy('email', '=', $email);
 
         if (is_null($user)) {
-
             if ($createNew) {
 
                 // store the user api data in the session, then allow them to fill other fields prior to their account creation
@@ -93,7 +93,6 @@ trait oauth2Authenticator
             flash()->error('We could not find a matching user account on our server. Try creating an account first');
 
             return redirect()->to(session('url.intended', '/'));
-
         } else {
 
             // login the user
@@ -104,9 +103,10 @@ trait oauth2Authenticator
     }
 
     /**
-     * Creates a user's account using OAUTH provider API data
+     * Creates a user's account using OAUTH provider API data.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function createAccount(Request $request)

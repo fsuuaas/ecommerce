@@ -21,8 +21,8 @@ return [
         // Define roles applicable to users accessing the backend
         'allowedRoles' => [
             'Administrator',
-            'Manager'
-        ]
+            'Manager',
+        ],
 
     ],
 
@@ -117,9 +117,8 @@ return [
     */
     'composers' => [
         // how long should we cache? (minutes)
-        'cache_duration' => 30
+        'cache_duration' => 30,
     ],
-
 
     /*
     |--------------------------------------------------------------------------
@@ -153,7 +152,7 @@ return [
          * of products displayed on the homepage, under the section 'new products'
          */
         'new' => [
-            'age' => 14
+            'age' => 14,
         ],
 
         /*
@@ -172,14 +171,14 @@ return [
              * specify the dimensions for doing so here
              */
             'dimensions' => [
-                'new_width' => 1920,
-                'new_height' => 1080
+                'new_width'  => 1920,
+                'new_height' => 1080,
             ],
 
             /*
              * Specify the location where the images should be saved
              */
-            'storage' => "/public/assets/images/products",
+            'storage' => '/public/assets/images/products',
         ],
 
         /*
@@ -207,8 +206,8 @@ return [
         'reviews' => [
 
             // Specify the number of reviews to display on the product details page
-            'display' => 5
-        ]
+            'display' => 5,
+        ],
     ],
 
     /*
@@ -228,18 +227,17 @@ return [
              * specify the dimensions for doing so here
              */
             'dimensions' => [
-                'new_width' => 220,
-                'new_height' => 110
+                'new_width'  => 220,
+                'new_height' => 110,
             ],
 
             /*
              * Specify the location where the images should be saved
              */
-            'storage' => "/public/assets/images/brands",
+            'storage' => '/public/assets/images/brands',
         ],
 
     ],
-
 
     /*
     |--------------------------------------------------------------------------
@@ -287,7 +285,7 @@ return [
          * During displaying top rated products, we not only need to know the average rating
          * but also how many times it was given a top rating. That top rating has been defined above
          */
-        'count' => 5
+        'count' => 5,
     ],
 
     /*
@@ -309,8 +307,8 @@ return [
 
         // enable or disable olark chart. Olark is a chat plugin
         'olark_chart' => [
-            'backend' => false,
+            'backend'  => false,
             'frontend' => false,
-        ]
-    ]
+        ],
+    ],
 ];

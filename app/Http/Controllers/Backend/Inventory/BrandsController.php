@@ -13,7 +13,7 @@ use yajra\Datatables\Datatables;
 class BrandsController extends Controller
 {
     /**
-     * The brands module
+     * The brands module.
      *
      * @var BrandsRepository
      */
@@ -28,7 +28,7 @@ class BrandsController extends Controller
     }
 
     /**
-     * Display a listing of brands
+     * Display a listing of brands.
      *
      * @return Response
      */
@@ -42,13 +42,11 @@ class BrandsController extends Controller
      */
     public function getDataTable()
     {
-
         $brands = $this->brand->with(['products'])->select('*');
 
         $data = Datatables::of($brands)->addColumn('edit', function ($brand) {
             return link_to(route('backend.brands.edit', ['id' => $brand->id]), 'Edit', ['data-target-model' => $brand->id, 'class' => 'btn btn-xs btn-primary']);
         })->addColumn('count', function ($brand) {
-
             return $brand->products->count();
         });
 
@@ -56,7 +54,7 @@ class BrandsController extends Controller
     }
 
     /**
-     * Show the form for creating a new product brand
+     * Show the form for creating a new product brand.
      *
      * @return Response
      */
@@ -83,6 +81,7 @@ class BrandsController extends Controller
      * Display the specified product brand.
      *
      * @param Brand $brand
+     *
      * @return Response
      */
     public function show(Brand $brand)
@@ -94,6 +93,7 @@ class BrandsController extends Controller
      * Show the form for editing the specified product brand.
      *
      * @param Brand $brand
+     *
      * @return Response
      */
     public function edit(Brand $brand)
@@ -105,7 +105,8 @@ class BrandsController extends Controller
      * Update the specified product brand in storage.
      *
      * @param BrandFormRequest $request
-     * @param Brand $brand
+     * @param Brand            $brand
+     *
      * @return Response
      */
     public function update(BrandFormRequest $request, Brand $brand)
@@ -119,8 +120,8 @@ class BrandsController extends Controller
      * Remove the specified product brand from storage.
      *
      * @param DeleteInventoryRequest $request
+     * @param Brand                  $brand
      *
-     * @param Brand $brand
      * @return Response
      */
     public function destroy(DeleteInventoryRequest $request, Brand $brand)
@@ -129,5 +130,4 @@ class BrandsController extends Controller
 
         return $this->handleRedirect($request, route('backend.brands.index'));
     }
-
 }

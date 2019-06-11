@@ -1,8 +1,9 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Security;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Security;
 
 interface AccessControl
 {
-
     /**
      * @param $permission_id
      * @param array $roles

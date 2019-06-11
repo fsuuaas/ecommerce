@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Authentication;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Authentication;
 
 use app\Antony\DomainLogic\Contracts\Security\ResetPasswordContact;
 use App\Events\PasswordResetWasRequested;
@@ -9,14 +11,14 @@ use UnexpectedValueException;
 class ResetPasswords implements ResetPasswordContact
 {
     /**
-     * Results after sending mail
+     * Results after sending mail.
      *
      * @var array
      */
     private $mailResult;
 
     /**
-     * The user
+     * The user.
      *
      * @var User
      */
@@ -32,7 +34,6 @@ class ResetPasswords implements ResetPasswordContact
      */
     public function __construct(PasswordBroker $passwordBroker)
     {
-
         $this->passwordBroker = $passwordBroker;
     }
 
@@ -45,19 +46,17 @@ class ResetPasswords implements ResetPasswordContact
     }
 
     /**
-     * Does exactly what it says it does
+     * Does exactly what it says it does.
      *
      * @param array $credentials
+     *
      * @return array|null|string
      */
     public function getUserAndSendEmail(array $credentials)
     {
-
         try {
             $this->user = $this->passwordBroker->getUser($credentials);
-
         } catch (UnexpectedValueException $e) {
-
             return PasswordBroker::INVALID_USER;
         }
 
@@ -65,35 +64,31 @@ class ResetPasswords implements ResetPasswordContact
         $this->mailResult = event(new PasswordResetWasRequested($this->user));
 
         return empty($this->mailResult) ? null : PasswordBroker::RESET_LINK_SENT;
-
     }
 
     /**
-     * Process a password reset request. This is the last step in the reset process
+     * Process a password reset request. This is the last step in the reset process.
      *
      * @param $credentials
+     *
      * @return mixed|string
      */
     public function resetPassword($credentials)
     {
         $status = $this->passwordBroker->reset($credentials, function ($user, $password) {
-
             $user->password = app('hash')->make($password);
 
             if ($user->save()) {
                 // auto login the user
                 auth()->login($user);
-
             }
-
         });
 
         return $status;
-
     }
 
     /**
-     * Finds the user with the specified email address
+     * Finds the user with the specified email address.
      *
      * @param $email_address
      *
@@ -105,15 +100,16 @@ class ResetPasswords implements ResetPasswordContact
     }
 
     /**
-     * Sends a reset email to the user
+     * Sends a reset email to the user.
      *
      * @return mixed
      */
     public function sendResetEmail()
     {
-        if (is_null($this->user)) return;
+        if (is_null($this->user)) {
+            return;
+        }
 
         return event(new PasswordResetWasRequested($this->user));
-
     }
 }

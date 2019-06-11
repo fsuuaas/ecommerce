@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Security;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Security;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
@@ -7,9 +9,8 @@ use Illuminate\Container\Container;
 
 class RolesRepository extends EloquentRepository
 {
-
     /**
-     * @param Container $container
+     * @param Container      $container
      * @param UserRepository $userRepository
      */
     public function __construct(Container $container, UserRepository $userRepository)
@@ -19,9 +20,8 @@ class RolesRepository extends EloquentRepository
         $this->user = $userRepository;
     }
 
-
     /**
-     * Assign roles to a user
+     * Assign roles to a user.
      *
      * @param $userID
      * @param array $roles
@@ -36,19 +36,17 @@ class RolesRepository extends EloquentRepository
 
             // skip roles that already belong to the user
             if ($user->hasRole($this->find($role)->name)) {
-
                 continue;
             }
 
             $user->roles()->attach($role);
-
         }
 
         return 1;
     }
 
     /**
-     * Assign permissions to a role
+     * Assign permissions to a role.
      *
      * @param $roleID
      * @param array $permissions
@@ -57,7 +55,6 @@ class RolesRepository extends EloquentRepository
      */
     public function givePermissions($roleID, array $permissions)
     {
-
         $role = parent::find($roleID);
 
         $role->attachPermissions($permissions);
@@ -66,7 +63,7 @@ class RolesRepository extends EloquentRepository
     }
 
     /**
-     * Revoke a user's roles
+     * Revoke a user's roles.
      *
      * @param $userID
      * @param array $roles
@@ -75,7 +72,6 @@ class RolesRepository extends EloquentRepository
      */
     public function revoke($userID, array $roles)
     {
-
         $user = $this->user->find($userID);
 
         $user->roles()->detach($roles);
@@ -84,7 +80,7 @@ class RolesRepository extends EloquentRepository
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */

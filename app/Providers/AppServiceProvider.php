@@ -1,16 +1,15 @@
-<?php namespace App\Providers;
+<?php
+
+namespace App\Providers;
 
 use app\Antony\DomainLogic\Contracts\Caching\CacheInterface;
 use app\Antony\DomainLogic\Contracts\Imaging\ImagingInterface;
 use app\Antony\DomainLogic\Modules\Cache\LaravelCache;
 use App\Antony\DomainLogic\Modules\Images\ImageProcessor;
-use App\Models\Product;
-use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -19,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // ensure that our helper functions file is loaded
-        require_once app_path() . '/Antony/helpers.php';
+        require_once app_path().'/Antony/helpers.php';
     }
 
     /**
@@ -41,8 +40,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ImagingInterface::class, function ($app) {
             return new ImageProcessor();
         });
-
-
     }
-
 }

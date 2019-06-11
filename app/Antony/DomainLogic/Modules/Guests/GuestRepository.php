@@ -1,11 +1,12 @@
-<?php namespace app\Antony\DomainLogic\Modules\Guests;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Guests;
 
 use app\Antony\DomainLogic\Modules\DAL\EloquentRepository;
 use App\Models\Guest;
 
 class GuestRepository extends EloquentRepository
 {
-
     /**
      * @param $data
      * @param null $id
@@ -18,7 +19,7 @@ class GuestRepository extends EloquentRepository
     }
 
     /**
-     * Specify the Model class name
+     * Specify the Model class name.
      *
      * @return mixed
      */

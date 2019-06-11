@@ -1,4 +1,6 @@
-<?php namespace app\Models;
+<?php
+
+namespace app\Models;
 
 use Eloquent;
 
@@ -63,5 +65,4 @@ class Order extends Eloquent
     {
         return $this->hasOne(\App\Models\Invoice::class);
     }
-
 }

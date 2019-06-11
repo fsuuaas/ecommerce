@@ -22,30 +22,30 @@ return [
         'secret' => '',
     ],
     'ses' => [
-        'key' => '',
+        'key'    => '',
         'secret' => '',
         'region' => 'us-east-1',
     ],
     'stripe' => [
-        'model' => 'User',
+        'model'  => 'User',
         'secret' => '',
     ],
 
     'github' => [
-        'client_id' => 'your-github-app-id',
+        'client_id'     => 'your-github-app-id',
         'client_secret' => 'your-github-app-secret',
-        'redirect' => 'http://your-callback-url',
+        'redirect'      => 'http://your-callback-url',
     ],
 
     'facebook' => [
-        'client_id' => env('FACEBOOK_APP_ID'),
+        'client_id'     => env('FACEBOOK_APP_ID'),
         'client_secret' => env('FACEBOOK_APP_SECRET'),
-        'redirect' => env('SITE_DOMAIN'),
+        'redirect'      => env('SITE_DOMAIN'),
     ],
 
     'google' => [
-        'client_id' => env('GOOGLE_APP_ID'),
+        'client_id'     => env('GOOGLE_APP_ID'),
         'client_secret' => env('GOOGLE_APP_SECRET'),
-        'redirect' => env('SITE_DOMAIN'),
+        'redirect'      => env('SITE_DOMAIN'),
     ],
 ];

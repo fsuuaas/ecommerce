@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Accounts;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Accounts;
 
 use app\Antony\DomainLogic\Contracts\Account\AccountsContract;
 use app\Antony\DomainLogic\Modules\User\UserRepository;
@@ -11,62 +13,61 @@ use Illuminate\Http\Response;
 class AccountsRepository implements AccountsContract
 {
     /**
-     * Flag to indicate if the request is from/to the backend
+     * Flag to indicate if the request is from/to the backend.
      *
-     * @var boolean
+     * @var bool
      */
     public $backend = false;
 
     /**
-     * Results from a account audit attempt
+     * Results from a account audit attempt.
      *
      * @var string
      */
     protected $result;
 
     /**
-     * The authenticator implementation
+     * The authenticator implementation.
      *
      * @var Guard
      */
     protected $auth;
 
     /**
-     * The user repo
+     * The user repo.
      *
      * @var UserRepository
      */
     protected $userRepository;
 
     /**
-     * The hasher implementation
+     * The hasher implementation.
      *
      * @var Hasher
      */
     protected $hasher;
 
     /**
-     * The user object
+     * The user object.
      *
      * @var User
      */
     protected $user;
 
     /**
-     * The data results
+     * The data results.
      *
      * @var mixed
      */
     protected $dataResult;
 
     /**
-     * @param Guard $guard
+     * @param Guard          $guard
      * @param UserRepository $userRepository
-     * @param Hasher $hasher
+     * @param Hasher         $hasher
      */
     public function __construct(Guard $guard, UserRepository $userRepository, Hasher $hasher)
     {
-
         $this->auth = $guard;
         $this->userRepository = $userRepository;
         $this->hasher = $hasher;
@@ -75,7 +76,7 @@ class AccountsRepository implements AccountsContract
     }
 
     /**
-     * Retrieves the authenticated user
+     * Retrieves the authenticated user.
      *
      * @return User|\Illuminate\Database\Eloquent\Model|\Illuminate\Support\Collection|mixed|null|static
      */
@@ -85,16 +86,18 @@ class AccountsRepository implements AccountsContract
 
         // This will be so rare, but anyway..
         if (is_null($this->user)) {
-            if(app()->runningInConsole()){
-                return null;
+            if (app()->runningInConsole()) {
+                return;
             }
+
             throw new HttpResponseException(new Response('Access denied', 401));
         }
+
         return $this->user;
     }
 
     /**
-     * Retrieves user account data
+     * Retrieves user account data.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -104,7 +107,7 @@ class AccountsRepository implements AccountsContract
     }
 
     /**
-     * Allows a user to update all their account data at once
+     * Allows a user to update all their account data at once.
      *
      * @param $new_data
      *
@@ -116,7 +119,6 @@ class AccountsRepository implements AccountsContract
         if (array_has($new_data, 'dob')) {
             // sometimes the date gets inserted as 000, so this function call fixes that
             $data['dob'] = $this->correctDateFormat($new_data['dob']);
-
         }
 
         $this->dataResult = $this->user->update($new_data);
@@ -125,7 +127,7 @@ class AccountsRepository implements AccountsContract
     }
 
     /**
-     * Fixes the 000 issue when inserting a date in the mm/dd/yyyy format
+     * Fixes the 000 issue when inserting a date in the mm/dd/yyyy format.
      *
      * @param $dob
      *
@@ -133,11 +135,11 @@ class AccountsRepository implements AccountsContract
      */
     public function correctDateFormat($dob)
     {
-        return date("Y-m-d", strtotime($dob));
+        return date('Y-m-d', strtotime($dob));
     }
 
     /**
-     * Allows a user to update their password, with an option to log them out when they finish
+     * Allows a user to update their password, with an option to log them out when they finish.
      *
      * @param $new_password
      * @param bool $logOutWhenDone
@@ -153,28 +155,24 @@ class AccountsRepository implements AccountsContract
 
         // the user requested to log-out, so we return the favour
         if ($logOutWhenDone) {
-
             $this->auth->logout();
-
         }
 
         return $this->dataResult;
-
     }
 
     /**
-     * Allows an admin user to update another user's password
+     * Allows an admin user to update another user's password.
      *
      * @param $user_id
      * @param $new_password
      * @param bool $logoutTheUser
+     *
      * @return bool
      */
     public function updateAnotherUsersPassword($user_id, $new_password, $logoutTheUser = false)
     {
-
         if ($user_id === $this->user->id) {
-
             return $this->updatePassword($new_password, $logoutTheUser);
         }
         $user = $this->userRepository->find($user_id, [], true);
@@ -186,16 +184,16 @@ class AccountsRepository implements AccountsContract
         if ($logoutTheUser) {
 
             // not implemented yet
-
         }
 
         return $this->dataResult;
     }
 
     /**
-     * Validates the authenticated user's password
+     * Validates the authenticated user's password.
      *
      * @param $user_password
+     *
      * @return bool
      */
     public function confirmPassword($user_password)
@@ -209,7 +207,7 @@ class AccountsRepository implements AccountsContract
 
     /**
      * Allows a user to delete their account. The force option can be used, if we are working with a model
-     * that uses the soft deletes trait
+     * that uses the soft deletes trait.
      *
      * @param bool $force
      *
@@ -218,7 +216,6 @@ class AccountsRepository implements AccountsContract
     public function deleteAccount($force = false)
     {
         if ($force) {
-
             $this->user->forceDelete();
 
             // log the user out
@@ -226,7 +223,6 @@ class AccountsRepository implements AccountsContract
 
             return true;
         } else {
-
             $this->dataResult = $this->userRepository->delete([$this->user->id]);
 
             // log the user out
@@ -234,7 +230,5 @@ class AccountsRepository implements AccountsContract
 
             return $this->dataResult;
         }
-
     }
-
 }

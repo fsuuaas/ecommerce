@@ -1,4 +1,6 @@
-<?php namespace app\Antony\DomainLogic\Modules\Checkout\Guest;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\Checkout\Guest;
 
 use app\Antony\DomainLogic\Contracts\Redirects\AppRedirector;
 use app\Antony\DomainLogic\Modules\Checkout\AbstractCheckoutProcessor;
@@ -8,11 +10,10 @@ use Illuminate\Http\Request;
 
 class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
 {
-
     const ACCOUNT_CREATED = 1;
 
     /**
-     * Handle a redirect after a CRUD operation
+     * Handle a redirect after a CRUD operation.
      *
      * @param $request
      *
@@ -38,7 +39,7 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
     }
 
     /**
-     * Process the current step in the checkout phase
+     * Process the current step in the checkout phase.
      *
      * @param $data
      *
@@ -46,14 +47,12 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
      */
     public function processCurrentStep($data)
     {
-        return;
     }
 
     /**
-     * Creates the user's account
+     * Creates the user's account.
      *
      * @param $request
-     *
      * @param UserRepository $registerUser
      *
      * @return $this
@@ -63,7 +62,6 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
         $data = $this->mapGuestToUser($request->all());
 
         if (is_null($data)) {
-
             return $this;
         } else {
 
@@ -82,11 +80,10 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
 
             return $this;
         }
-
     }
 
     /**
-     * Maps a guest user account to an new user account
+     * Maps a guest user account to an new user account.
      *
      * @param $data
      *
@@ -95,26 +92,25 @@ class CreateAccount extends AbstractCheckoutProcessor implements AppRedirector
     public function mapGuestToUser($data)
     {
         if (!$this->getCookieData() instanceof Guest) {
-
-            return null;
+            return;
         }
 
         $new_data = [
-            'first_name' => $this->cookieData->first_name,
-            'last_name' => $this->cookieData->last_name,
-            'email' => $this->cookieData->email,
+            'first_name'   => $this->cookieData->first_name,
+            'last_name'    => $this->cookieData->last_name,
+            'email'        => $this->cookieData->email,
             'home_address' => $this->cookieData->home_address,
-            'county_id' => $this->cookieData->county_id,
-            'phone' => $this->cookieData->phone,
-            'town' => $this->cookieData->town,
-            'password' => bcrypt($data['password'])
+            'county_id'    => $this->cookieData->county_id,
+            'phone'        => $this->cookieData->phone,
+            'town'         => $this->cookieData->town,
+            'password'     => bcrypt($data['password']),
         ];
 
         return $new_data;
     }
 
     /**
-     * Deletes the guest user's account
+     * Deletes the guest user's account.
      *
      * @param $id
      *

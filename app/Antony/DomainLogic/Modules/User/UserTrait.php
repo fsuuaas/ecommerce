@@ -1,42 +1,43 @@
-<?php namespace app\Antony\DomainLogic\Modules\User;
+<?php
+
+namespace app\Antony\DomainLogic\Modules\User;
 
 use App\Models\Cart;
 use App\Models\Review;
-use Carbon\Carbon;
 use DateTime;
 
 trait UserTrait
 {
     /**
-     * The minimum user's age allowed
+     * The minimum user's age allowed.
      *
      * @var int
      */
     public $minAge = 18;
 
     /**
-     * The maximum user's age allowed
+     * The maximum user's age allowed.
      *
      * @var int
      */
     public $maxAge = 60;
 
     /**
-     * Flag to indicate that the user passed the age test
+     * Flag to indicate that the user passed the age test.
      *
      * @var bool
      */
     public $passedAgeTest = false;
 
     /**
-     * The shopping cart model
+     * The shopping cart model.
      *
      * @var Cart
      */
     protected $cart;
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function canAccessBackend()
     {
@@ -44,7 +45,7 @@ trait UserTrait
     }
 
     /**
-     * Check if the logged in user has reviewed a product
+     * Check if the logged in user has reviewed a product.
      *
      * @param $productID
      *
@@ -58,7 +59,7 @@ trait UserTrait
     }
 
     /**
-     * Get the logged in user's review of a product
+     * Get the logged in user's review of a product.
      *
      * @param $productID
      *
@@ -90,7 +91,7 @@ trait UserTrait
     }
 
     /**
-     * Checks if a user has added extra data to their account
+     * Checks if a user has added extra data to their account.
      *
      * @return int
      */
@@ -100,7 +101,7 @@ trait UserTrait
     }
 
     /**
-     * Check if a user is 'ready' to check out
+     * Check if a user is 'ready' to check out.
      *
      * @return bool
      */
@@ -110,32 +111,29 @@ trait UserTrait
     }
 
     /**
-     * Checks if a specified user's attributes are empty
+     * Checks if a specified user's attributes are empty.
      *
      * @param array $attributes
-     * @param int $err_count
+     * @param int   $err_count
+     *
      * @return bool
      */
     protected function attributes_are_empty(array $attributes, $err_count = 1)
     {
-
         static $count = 0;
 
         foreach ($attributes as $attribute) {
-
             if (empty($this->$attribute)) {
-
                 $count++;
             }
         }
 
         return $count >= $err_count ? true : false;
-
     }
 
     /**
      * Check the user's age with an option of returning it
-     * By default, we only return the fact that they passed/not
+     * By default, we only return the fact that they passed/not.
      *
      * @param $dateOfBirth
      * @param bool $returnAge
@@ -155,6 +153,5 @@ trait UserTrait
 
         // return the age, or ..
         return $returnAge ? $years : $passed;
-
     }
 }

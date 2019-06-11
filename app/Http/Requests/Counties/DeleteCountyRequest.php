@@ -1,10 +1,11 @@
-<?php namespace App\Http\Requests\Counties;
+<?php
+
+namespace App\Http\Requests\Counties;
 
 use App\Http\Requests\Request;
 
 class DeleteCountyRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,5 +27,4 @@ class DeleteCountyRequest extends Request
             //
         ];
     }
-
 }

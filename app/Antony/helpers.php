@@ -86,7 +86,7 @@ function max_star_rating()
 }
 
 /**
- * Helper to generate hidden html input field with embedded csrf token
+ * Helper to generate hidden html input field with embedded csrf token.
  *
  * @return string
  */
@@ -98,7 +98,7 @@ function csrf_html()
 if (!function_exists('eq')) {
 
     /**
-     * Checks if two values are equal
+     * Checks if two values are equal.
      *
      * @param $value1
      * @param $value2
@@ -108,7 +108,6 @@ if (!function_exists('eq')) {
      */
     function eq($value1, $value2, $strict = true)
     {
-
         return $strict ? $value1 === $value2 : $value1 == $value2;
     }
 }
@@ -116,11 +115,10 @@ if (!function_exists('eq')) {
 if (!function_exists('int_random')) {
 
     /**
-     * generate secure random numbers
+     * generate secure random numbers.
      *
      * @param int $min
      * @param int $max
-     *
      * @param int $bytes
      *
      * @return int|number
@@ -145,7 +143,7 @@ if (!function_exists('int_random')) {
 }
 
 /**
- * beautify a name, by capitalizing its first letters and removing spaces
+ * beautify a name, by capitalizing its first letters and removing spaces.
  *
  * @param $name
  *
@@ -153,11 +151,11 @@ if (!function_exists('int_random')) {
  */
 function beautify($name)
 {
-    return ucwords(preg_replace("/[^A-Za-z0-9 ]/", '-', $name));
+    return ucwords(preg_replace('/[^A-Za-z0-9 ]/', '-', $name));
 }
 
 /**
- * Allows us to generate an SEO compatible name/url
+ * Allows us to generate an SEO compatible name/url.
  *
  * @param $string
  *
@@ -172,7 +170,7 @@ if (!function_exists('file_exists_on_server')) {
 
     /**
      * Ok, obviously there exists the 'file_exists' function by default in PHP
-     * but this is just a simple wrapper around it
+     * but this is just a simple wrapper around it.
      *
      * @param $file
      *
@@ -184,14 +182,14 @@ if (!function_exists('file_exists_on_server')) {
             return false;
         }
 
-        return file_exists(public_path() . $file);
+        return file_exists(public_path().$file);
     }
 }
 
 if (!function_exists('delete_file')) {
 
     /**
-     * Allows us to delete a file from the public path
+     * Allows us to delete a file from the public path.
      *
      * @param $file
      *
@@ -203,19 +201,20 @@ if (!function_exists('delete_file')) {
             return false;
         }
 
-        return File::delete(public_path() . $file);
+        return File::delete(public_path().$file);
     }
 }
 
 if (!function_exists('display_img')) {
 
     /**
-     * Allows us to display a picture/image of a model. if it has one already
+     * Allows us to display a picture/image of a model. if it has one already.
      *
-     * @param Model $model
-     * @param bool $fromUrl
+     * @param Model  $model
+     * @param bool   $fromUrl
      * @param string $image
-     * @param bool $mustExistOnServer
+     * @param bool   $mustExistOnServer
+     *
      * @return string
      */
     function display_img($model, $fromUrl = false, $image = 'image', $mustExistOnServer = true)
@@ -225,25 +224,25 @@ if (!function_exists('display_img')) {
             if (file_exists_on_server($fromUrl)) {
                 return asset($fromUrl);
             }
+
             return asset(error_image());
         }
         // if the image is not on our server, then we just skip the checks
         if ($mustExistOnServer) {
-
             if (file_exists_on_server($model->$image)) {
                 return asset($model->$image);
             }
+
             return asset(error_image());
         }
 
         if (!is_null(asset($model->$image))) {
-
             return asset($model->$image);
         }
+
         return asset(error_image());
     }
 }
-
 
 if (!function_exists('is_serialized')) {
 
@@ -251,8 +250,8 @@ if (!function_exists('is_serialized')) {
     // actually copied directly from the word-press core
     /**
      * @param $data
-     *
      * @param bool $strict
+     *
      * @return bool
      */
     function is_serialized($data, $strict = true)
@@ -280,17 +279,20 @@ if (!function_exists('is_serialized')) {
             $semicolon = strpos($data, ';');
             $brace = strpos($data, '}');
             // Either ; or } must exist.
-            if (false === $semicolon && false === $brace)
+            if (false === $semicolon && false === $brace) {
                 return false;
+            }
             // But neither must be in the first X characters.
-            if (false !== $semicolon && $semicolon < 3)
+            if (false !== $semicolon && $semicolon < 3) {
                 return false;
-            if (false !== $brace && $brace < 4)
+            }
+            if (false !== $brace && $brace < 4) {
                 return false;
+            }
         }
         $token = $data[0];
         switch ($token) {
-            case 's' :
+            case 's':
                 if ($strict) {
                     if ('"' !== substr($data, -2, 1)) {
                         return false;
@@ -299,15 +301,17 @@ if (!function_exists('is_serialized')) {
                     return false;
                 }
             // or else fall through
-            case 'a' :
-            case 'O' :
-                return (bool)preg_match("/^{$token}:[0-9]+:/s", $data);
-            case 'b' :
-            case 'i' :
-            case 'd' :
+            case 'a':
+            case 'O':
+                return (bool) preg_match("/^{$token}:[0-9]+:/s", $data);
+            case 'b':
+            case 'i':
+            case 'd':
                 $end = $strict ? '$' : '';
-                return (bool)preg_match("/^{$token}:[0-9.E-]+;$end/", $data);
+
+                return (bool) preg_match("/^{$token}:[0-9.E-]+;$end/", $data);
         }
+
         return false;
     }
 }
@@ -315,7 +319,7 @@ if (!function_exists('is_serialized')) {
 if (!function_exists('h')) {
 
     /**
-     * hash a value by default, using SHA256
+     * hash a value by default, using SHA256.
      *
      * @param $data
      *
@@ -325,16 +329,14 @@ if (!function_exists('h')) {
     {
         return hash('sha256', $data);
     }
-
 }
 
 if (!function_exists('format_money')) {
 
     /**
-     * Formats a money object to price + value. eg Money A becomes KSH 10000
+     * Formats a money object to price + value. eg Money A becomes KSH 10000.
      *
      * @param $money
-     *
      * @param bool $returnMoneyObject
      *
      * @return mixed
@@ -342,23 +344,22 @@ if (!function_exists('format_money')) {
     function format_money($money, $returnMoneyObject = false)
     {
         if (!$money instanceof Money) {
-
-            $money = new Money(is_int($money) ? $money : (int)$money, new Currency(config('site.currencies.default', 'KES')));
+            $money = new Money(is_int($money) ? $money : (int) $money, new Currency(config('site.currencies.default', 'KES')));
         }
 
         return $returnMoneyObject ? $money : (new MoneyFormatter())->format($money);
-
     }
 }
 
 /**
- * Generates a url to an auth page e.g login/register
+ * Generates a url to an auth page e.g login/register.
  *
  * @param string $name
- * @param null $returnUrl
+ * @param null   $returnUrl
  * @param string $title
- * @param bool $displayReturn
- * @param array $options
+ * @param bool   $displayReturn
+ * @param array  $options
+ *
  * @return string
  */
 function link_to_auth_route($name, $returnUrl = null, $title = 'Login', $displayReturn = false, array $options = [])
@@ -367,24 +368,24 @@ function link_to_auth_route($name, $returnUrl = null, $title = 'Login', $display
     $target = $returnUrl;
 
     if (!is_null($target)) {
-
         app('session')->pull('url.intended');
 
         app('session')->put('url.intended', $target);
     }
+
     return link_to_route($name, $title, $displayReturn ? ['returnTo' => is_null($target) ? session('url.intended', '/') : $target] : [], $options);
 }
 
 /**
- * Generates a secure url to a route
+ * Generates a secure url to a route.
  *
  * @param $name
  * @param array $params
+ *
  * @return string
  */
 function link_to_secure_route($name, array $params = [])
 {
-
     $url = route($name, $params);
 
     return secure_url($url);

@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use app\Antony\DomainLogic\Presenters\NamePresenter;
 use Carbon\Carbon;
@@ -15,7 +17,7 @@ class Category extends Eloquent
     protected $fillable = [
         'name',
         'alias',
-        'banner'
+        'banner',
     ];
 
     /**

@@ -1,10 +1,11 @@
-<?php namespace app\Antony\DomainLogic\Contracts\Caching;
+<?php
+
+namespace app\Antony\DomainLogic\Contracts\Caching;
 
 interface CacheInterface
 {
-
     /**
-     * Retrieve a value from a cache using its key
+     * Retrieve a value from a cache using its key.
      *
      * @param $key
      *
@@ -12,9 +13,8 @@ interface CacheInterface
      */
     public function get($key);
 
-
     /**
-     * Store an item in the cache
+     * Store an item in the cache.
      *
      * @param $key
      * @param $value
@@ -24,9 +24,8 @@ interface CacheInterface
      */
     public function put($key, $value, $minutes = null);
 
-
     /**
-     * Check if a cache has an item
+     * Check if a cache has an item.
      *
      * @param $key
      *

@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-
     /**
      * @var ShoppingCartEntity
      */
@@ -45,13 +44,13 @@ class CartController extends Controller
     {
         $this->data = $this->shoppingCart->add($product, $request->get('quantity', 1));
 
-        $this->setSuccessMessage("The product was added to your shopping cart");
+        $this->setSuccessMessage('The product was added to your shopping cart');
 
         return $this->handleRedirect($request, route('cart.view'));
     }
 
     /**
-     * Allows the user to view the items in their shopping cart
+     * Allows the user to view the items in their shopping cart.
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
@@ -71,7 +70,7 @@ class CartController extends Controller
     {
         $this->data = $this->shoppingCart->updateBasket($product, $request->get('quantity', 1), false);
 
-        $this->setSuccessMessage("Your shopping cart was successfully updated");
+        $this->setSuccessMessage('Your shopping cart was successfully updated');
 
         return $this->handleRedirect($request);
     }
@@ -86,7 +85,7 @@ class CartController extends Controller
     {
         $this->data = $this->shoppingCart->removeProduct($product);
 
-        $this->setSuccessMessage("The product was removed from your shopping cart");
+        $this->setSuccessMessage('The product was removed from your shopping cart');
 
         return $this->handleRedirect($request);
     }
